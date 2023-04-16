@@ -9,7 +9,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Homepage">
    <children>
       <TabPane prefHeight="600.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
@@ -29,7 +28,7 @@
                             <TableColumn prefWidth="75.0" text="C2" />
                           </columns>
                         </TableView>
-                        <Button layoutX="747.0" layoutY="440.0" mnemonicParsing="false" text="Add Customer" />
+                        <Button fx:id="addCustomerButton" layoutX="747.0" layoutY="440.0" mnemonicParsing="false" onAction="#goToAddCustomer" text="Add Customer" />
                      </children>
                   </AnchorPane>
             </content>

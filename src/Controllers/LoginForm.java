@@ -10,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.time.ZoneId;
 
@@ -19,8 +18,8 @@ public class LoginForm {
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    @FXML private Button signInButton;
     @FXML private Text locationText;
+
 
     public void initialize() {
         checkLocation();
@@ -37,10 +36,12 @@ public class LoginForm {
         if (username.equals("test") && password.equals("test")) {
             Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/Homepage.fxml"));
             Scene scene = new Scene(root);
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setTitle("Homepage");
-            stage.setScene(scene);
-            stage.show();
+            Stage newStage = new Stage();
+            newStage.setTitle("Homepage");
+            newStage.setScene(scene);
+            newStage.show();
+            Stage currentStage = (Stage) locationText.getScene().getWindow();
+            currentStage.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Sign-In Failed");
