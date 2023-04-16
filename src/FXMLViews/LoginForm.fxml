@@ -6,6 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.PasswordField?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginForm">
    <children>
       <Text layoutX="218.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login" textAlignment="CENTER" wrappingWidth="163.21630859375">
@@ -14,7 +15,7 @@
          </font>
       </Text>
       <TextField fx:id="usernameField" layoutX="220.0" layoutY="127.0" promptText="Username" />
-      <TextField fx:id="passwordField" layoutX="220.0" layoutY="160.0" promptText="Password" />
+      <PasswordField fx:id="passwordField" layoutX="220.0" layoutY="160.0" promptText="Password" />
       <Button fx:id="signInButton" layoutX="273.0" layoutY="206.0" mnemonicParsing="false" onAction="#signIn" text="Sign In" />
       <Text fx:id="locationText" layoutX="14.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location: " wrappingWidth="303.0" />
    </children>
