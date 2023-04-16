@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -20,6 +23,13 @@
                               <Font size="21.0" />
                            </font>
                         </Text>
+                        <TableView layoutX="37.0" layoutY="98.0" prefHeight="305.0" prefWidth="827.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="747.0" layoutY="440.0" mnemonicParsing="false" text="Add Customer" />
                      </children>
                   </AnchorPane>
             </content>
