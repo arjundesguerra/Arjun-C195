@@ -1,4 +1,3 @@
-import Controllers.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +8,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Controllers/LoginForm.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLViews/LoginForm.fxml"));
         primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
