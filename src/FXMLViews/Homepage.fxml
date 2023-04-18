@@ -24,13 +24,13 @@
                         </Text>
                         <TableView layoutX="37.0" layoutY="98.0" prefHeight="305.0" prefWidth="827.0">
                           <columns>
-                            <TableColumn prefWidth="82.0" text="Customer ID" />
-                            <TableColumn prefWidth="133.0" text="Customer Name" />
-                              <TableColumn prefWidth="128.0" text="Phone Number" />
-                              <TableColumn prefWidth="139.0" text="Address" />
-                              <TableColumn prefWidth="135.0" text="State/Province" />
-                              <TableColumn prefWidth="114.0" text="Country" />
-                              <TableColumn prefWidth="95.0" text="Postal Code" />
+                            <TableColumn fx:id="idColumn" prefWidth="82.0" text="Customer ID" />
+                            <TableColumn fx:id="nameColumn" prefWidth="133.0" text="Customer Name" />
+                              <TableColumn fx:id="numberColumn" prefWidth="128.0" text="Phone Number" />
+                              <TableColumn fx:id="addressColumn" prefWidth="139.0" text="Address" />
+                              <TableColumn fx:id="divisionColumn" prefWidth="135.0" text="State/Province" />
+                              <TableColumn fx:id="countryColumn" prefWidth="114.0" text="Country" />
+                              <TableColumn fx:id="postalCodeColumn" prefWidth="95.0" text="Postal Code" />
                           </columns>
                         </TableView>
                         <Button fx:id="addCustomerButton" layoutX="747.0" layoutY="440.0" mnemonicParsing="false" onAction="#goToAddCustomer" text="Add Customer" />
