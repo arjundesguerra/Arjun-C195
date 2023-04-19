@@ -1,10 +1,14 @@
 package Controllers;
 
+import Database.CustomerHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,6 +16,22 @@ import java.io.IOException;
 public class Homepage {
 
     @FXML private Button addCustomerButton;
+    @FXML private TableView customerTable;
+    @FXML private TableColumn idColumn;
+    @FXML private TableColumn nameColumn;
+    @FXML private TableColumn numberColumn;
+    @FXML private TableColumn addressColumn;
+    @FXML private TableColumn divisionColumn;
+    @FXML private TableColumn countryColumn;
+    @FXML private TableColumn postalCodeColumn;
+
+
+    public void initialize() {
+        customerTable.setItems(CustomerHelper.getAllCustomers());
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+
+    }
 
     public void goToAddCustomer() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/AddCustomer.fxml"));

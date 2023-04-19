@@ -22,7 +22,7 @@
                               <Font size="21.0" />
                            </font>
                         </Text>
-                        <TableView layoutX="37.0" layoutY="98.0" prefHeight="305.0" prefWidth="827.0">
+                        <TableView fx:id="customerTable" layoutX="37.0" layoutY="98.0" prefHeight="305.0" prefWidth="827.0">
                           <columns>
                             <TableColumn fx:id="idColumn" prefWidth="82.0" text="Customer ID" />
                             <TableColumn fx:id="nameColumn" prefWidth="133.0" text="Customer Name" />

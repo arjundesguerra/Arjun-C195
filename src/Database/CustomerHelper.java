@@ -16,7 +16,8 @@ public class CustomerHelper {
 
         try (Connection conn = JDBC.getConnection();
              PreparedStatement statement = conn.prepareStatement("SELECT Customer_ID, Customer_Name, Phone, Address, Division, Country, Postal_Code " +
-                     "FROM customers");
+                     "FROM customers, countries, first_level_divisions " +
+                     "WHERE customers.Division_ID = first_level_divisions.Division_ID AND first_level_divisions.COUNTRY_ID = countries.Country_ID");
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
