@@ -30,6 +30,12 @@ public class Homepage {
         customerTable.setItems(CustomerHelper.getAllCustomers());
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("customerPhoneNumber"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("customerDivision"));
+        countryColumn.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
+        postalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
 
     }
 

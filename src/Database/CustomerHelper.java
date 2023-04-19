@@ -23,13 +23,13 @@ public class CustomerHelper {
             while (resultSet.next()) {
                 int customerID = resultSet.getInt("Customer_ID");
                 String customerName = resultSet.getString("Customer_Name");
-                String phoneNumber = resultSet.getString("Phone");
-                String address = resultSet.getString("Address");
-                String division = resultSet.getString("Division");
-                String country = resultSet.getString("Country");
-                String postalCode = resultSet.getString("Postal_Code");
+                String customerPhoneNumber = resultSet.getString("Phone");
+                String customerAddress = resultSet.getString("Address");
+                String customerDivision = resultSet.getString("Division");
+                String customerCountry = resultSet.getString("Country");
+                String customerPostalCode = resultSet.getString("Postal_Code");
 
-                Customer customer = new Customer(customerID, customerName, address, postalCode, phoneNumber, division, country);
+                Customer customer = new Customer(customerID, customerName, customerPhoneNumber, customerAddress, customerDivision, customerCountry, customerPostalCode);
                 customerList.add(customer);
             }
 
