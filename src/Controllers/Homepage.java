@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Homepage {
 
@@ -25,9 +26,8 @@ public class Homepage {
     @FXML private TableColumn countryColumn;
     @FXML private TableColumn postalCodeColumn;
 
-
-    public void initialize() {
-        customerTable.setItems(CustomerHelper.getAllCustomers());
+    public void initialize() throws SQLException {
+        customerTable.setItems(CustomerHelper.fetchCustomers());
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
