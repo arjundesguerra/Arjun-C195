@@ -1,5 +1,6 @@
 package Controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,9 +20,13 @@ public class LoginForm {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Text locationText;
+    @FXML private Button signInButton;
 
 
     public void initialize() {
+        signInButton.setFocusTraversable(true);
+        Platform.runLater(() -> signInButton.requestFocus());
+
         checkLocation();
     }
 

@@ -3,8 +3,6 @@ package Database;
 import Models.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -17,7 +15,7 @@ public class CustomerHelper {
         PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT Customer_ID, Customer_Name, Phone, Address, Division, Country, Postal_Code " +
                 "FROM customers " +
                 "JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID " +
-                "JOIN countries ON first_level_divisions.COUNTRY_ID = countries.Country_ID");
+                "JOIN countries ON first_level_divisions.COUNTRY_ID = countries.Country_ID ");
 
         ResultSet resultSet = statement.executeQuery();
 
