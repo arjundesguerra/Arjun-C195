@@ -35,4 +35,18 @@ public class CustomerHelper {
         return customerList;
     }
 
+    public static void createCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode,
+                                      String customerPhoneNumber, int customerDivisionID) throws SQLException {
+
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("INSERT INTO customers VALUES(?, ?, ?, ?, ?, NULL, NULL, CURRENT_TIMESTAMP , NULL, ?);");
+
+        statement.setInt(1, customerID);
+        statement.setString(2, customerName);
+        statement.setString(3, customerAddress);
+        statement.setString(4, customerPostalCode);
+        statement.setString(5, customerPhoneNumber);
+        statement.setInt(6, customerDivisionID);
+
+    }
+
 }
