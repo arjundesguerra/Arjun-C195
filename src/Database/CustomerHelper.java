@@ -51,4 +51,14 @@ public class CustomerHelper {
 
     }
 
+    public static int maxID() throws SQLException {
+        int customerID = 0;
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT MAX(Customer_ID) FROM customers");
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            customerID = resultSet.getInt(1) + 1;
+        }
+        return customerID;
+    }
+
 }

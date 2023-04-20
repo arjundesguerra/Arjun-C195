@@ -3,7 +3,9 @@ package Controllers;
 import Database.CustomerHelper;
 import Database.DivisionHelper;
 import Models.Division;
+import Models.Customer;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +20,6 @@ import java.sql.SQLException;
 
 public class AddCustomer {
 
-    private int iterateID = 4;
     @FXML private TextField nameTextField;
     @FXML private TextField numberTextField;
     @FXML private TextField addressTextField;
@@ -57,7 +58,7 @@ public class AddCustomer {
     }
 
     public void submit() throws IOException, SQLException {
-        int customerID = iterateID;
+        int customerID = CustomerHelper.maxID();
         String customerName = nameTextField.getText();
         String customerNumber = numberTextField.getText();
         String customerAddress = addressTextField.getText();
