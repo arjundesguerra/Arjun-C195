@@ -17,7 +17,7 @@
         <Text layoutX="337.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" />
         <Text layoutX="47.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postal Code:" />
         <Text layoutX="337.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State/Province:" />
-        <TextField editable="false" layoutX="156.0" layoutY="32.0" promptText="Disabled - Auto Gen" />
+        <TextField fx:id="idField" editable="false" layoutX="156.0" layoutY="32.0" promptText="Disabled - Auto Gen" />
         <TextField fx:id="nameTextField" layoutX="156.0" layoutY="82.0" />
         <TextField fx:id="numberTextField" layoutX="156.0" layoutY="132.0" />
         <TextField fx:id="addressTextField" layoutX="156.0" layoutY="182.0" />

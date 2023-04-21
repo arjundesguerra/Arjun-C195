@@ -24,6 +24,9 @@ public class EditCustomer {
     @FXML private ComboBox<Division> divisionComboBox;
     @FXML private Button cancelButton;
     @FXML private Button submitButton;
+    @FXML private TextField idField;
+    private int customerID;
+
 
     public void initialize() {
         submitButton.setFocusTraversable(true);
@@ -37,6 +40,11 @@ public class EditCustomer {
             }
         });
 
+    }
+
+    public void setIDField(int customerID) {
+        this.customerID = customerID;
+        idField.setText(Integer.toString(customerID));
     }
 
     public void divisionSelector() throws SQLException {

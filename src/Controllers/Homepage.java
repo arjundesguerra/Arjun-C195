@@ -49,15 +49,27 @@ public class Homepage {
     }
 
     public void goToEditCustomer() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/EditCustomer.fxml"));
-        Scene scene = new Scene(root);
-        Stage newStage = new Stage();
-        newStage.setTitle("Edit Customer");
-        newStage.setScene(scene);
-        newStage.show();
-        Stage currentStage = (Stage) addCustomerButton.getScene().getWindow();
-        currentStage.close();
+        Customer selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
+        if (selectedCustomer == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a customer to edit.", ButtonType.OK);
+            alert.showAndWait();
+        } else {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLViews/EditCustomer.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage newStage = new Stage();
+            newStage.setTitle("Edit Customer");
+            newStage.setScene(scene);
+
+            EditCustomer editCustomer = loader.getController();
+            editCustomer.setIDField(selectedCustomer.getCustomerID());
+
+            newStage.show();
+            Stage currentStage = (Stage) addCustomerButton.getScene().getWindow();
+            currentStage.close();
+        }
     }
+
 
     public void deleteCustomer() throws SQLException {
         Customer selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
