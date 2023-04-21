@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class AddCustomer {
+public class EditCustomer {
 
     @FXML private TextField nameTextField;
     @FXML private TextField numberTextField;

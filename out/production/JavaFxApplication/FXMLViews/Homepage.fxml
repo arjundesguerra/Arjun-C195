@@ -34,8 +34,8 @@
                           </columns>
                         </TableView>
                         <Button fx:id="addCustomerButton" layoutX="70.0" layoutY="425.0" mnemonicParsing="false" onAction="#goToAddCustomer" prefHeight="33.0" prefWidth="180.0" text="Add Customer" />
-                        <Button fx:id="editCustomerButton" layoutX="361.0" layoutY="425.0" mnemonicParsing="false" onAction="#goToAddCustomer" prefHeight="33.0" prefWidth="180.0" text="Edit Customer" />
-                        <Button fx:id="deleteCustomerButton" layoutX="650.0" layoutY="425.0" mnemonicParsing="false" onAction="#goToAddCustomer" prefHeight="33.0" prefWidth="180.0" text="Delete Customer" />
+                        <Button fx:id="editCustomerButton" layoutX="361.0" layoutY="425.0" mnemonicParsing="false" onAction="#goToEditCustomer" prefHeight="33.0" prefWidth="180.0" text="Edit Customer" />
+                        <Button fx:id="deleteCustomerButton" layoutX="650.0" layoutY="425.0" mnemonicParsing="false"  prefHeight="33.0" prefWidth="180.0" text="Delete Customer" />
                      </children>
                   </AnchorPane>
             </content>

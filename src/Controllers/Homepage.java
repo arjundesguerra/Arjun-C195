@@ -52,4 +52,15 @@ public class Homepage {
         currentStage.close();
     }
 
+    public void goToEditCustomer() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/EditCustomer.fxml"));
+        Scene scene = new Scene(root);
+        Stage newStage = new Stage();
+        newStage.setTitle("Edit Customer");
+        newStage.setScene(scene);
+        newStage.show();
+        Stage currentStage = (Stage) addCustomerButton.getScene().getWindow();
+        currentStage.close();
+    }
+
 }
