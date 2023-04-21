@@ -10,9 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -63,10 +61,16 @@ public class AddCustomer {
         String customerNumber = numberTextField.getText();
         String customerAddress = addressTextField.getText();
         String customerPostalCode = postalCodeTextField.getText();
-        int customerDivision = divisionComboBox.getValue().getDivisionID();
 
-        CustomerHelper.createCustomer(customerID, customerName, customerAddress, customerPostalCode, customerNumber, customerDivision);
-        goToHomepage();
+        if(customerName.isEmpty() || customerNumber.isEmpty() || customerAddress.isEmpty() || customerPostalCode.isEmpty()
+                || divisionComboBox.getValue() == null || countryComboBox.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill out all fields.", ButtonType.OK);
+            alert.showAndWait();
+        } else {
+            int customerDivision = divisionComboBox.getValue().getDivisionID();
+            CustomerHelper.createCustomer(customerID, customerName, customerAddress, customerPostalCode, customerNumber, customerDivision);
+            goToHomepage();
+        }
     }
 
     public void goToHomepage() throws IOException {

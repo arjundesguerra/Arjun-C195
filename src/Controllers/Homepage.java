@@ -17,6 +17,8 @@ import java.sql.SQLException;
 public class Homepage {
 
     @FXML private Button addCustomerButton;
+    @FXML private Button editCustomerButton;
+    @FXML private Button deleteCustomerButton;
     @FXML private TableView customerTable;
     @FXML private TableColumn idColumn;
     @FXML private TableColumn nameColumn;
