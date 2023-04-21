@@ -50,6 +50,7 @@ public class Homepage {
 
     public void goToEditCustomer() throws IOException {
         Customer selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
+
         if (selectedCustomer == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a customer to edit.", ButtonType.OK);
             alert.showAndWait();

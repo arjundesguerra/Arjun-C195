@@ -22,7 +22,7 @@ public class EditCustomer {
     @FXML private TextField addressTextField;
     @FXML private TextField postalCodeTextField;
     @FXML private ComboBox countryComboBox;
-    @FXML private ComboBox<Division> divisionComboBox;
+    @FXML private ComboBox divisionComboBox;
     @FXML private Button cancelButton;
     @FXML private Button submitButton;
     @FXML private TextField idField;
@@ -38,9 +38,6 @@ public class EditCustomer {
     public void initialize() throws SQLException {
         submitButton.setFocusTraversable(true);
         Platform.runLater(() -> submitButton.requestFocus());
-
-
-
     }
 
     public void setCustomerData(int customerID, String customerName, String customerNumber, String customerAddress, String customerPostalCode,
@@ -58,8 +55,7 @@ public class EditCustomer {
         numberTextField.setText(customerNumber);
         addressTextField.setText(customerAddress);
         postalCodeTextField.setText(customerPostalCode);
-
-        System.out.println(customerCountry);
+        divisionComboBox.setValue(customerDivision);
 
         if (customerCountry.equals("U.S")) {
             countryComboBox.setValue("United States");
@@ -104,7 +100,8 @@ public class EditCustomer {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill out all fields.", ButtonType.OK);
             alert.showAndWait();
         } else {
-            int customerDivision = divisionComboBox.getValue().getDivisionID();
+            Division selectedDivision = (Division) divisionComboBox.getValue();
+            int customerDivision = selectedDivision.getDivisionID();
             CustomerHelper.createCustomer(customerID, customerName, customerAddress, customerPostalCode, customerNumber, customerDivision);
             goToHomepage();
         }
