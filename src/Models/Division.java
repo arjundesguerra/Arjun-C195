@@ -10,9 +10,11 @@ public class Division {
         this.divisionName = divisionName;
     }
 
+
     public int getDivisionID() { return divisionID; }
 
     public String getDivisionName() { return divisionName; }
+
 
     @Override
     public String toString() { return divisionName; }

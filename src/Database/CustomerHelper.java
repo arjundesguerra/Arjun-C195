@@ -59,7 +59,6 @@ public class CustomerHelper {
         statement.setString(4, customerPhoneNumber);
         statement.setInt(5, customerDivisionID);
         statement.setInt(6, customerID);
-        System.out.println(statement);
         statement.execute();
 
     }
