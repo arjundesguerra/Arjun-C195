@@ -48,6 +48,23 @@ public class CustomerHelper {
 
     }
 
+    public static void editCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode,
+                                      String customerPhoneNumber, int customerDivisionID) throws SQLException {
+
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("INSERT INTO customers VALUES(?, ?, ?, ?, ?, , 'user', CURRENT_TIMESTAMP , 'user', ?);");
+        statement.setInt(1, customerID);
+        statement.setString(2, customerName);
+        statement.setString(3, customerAddress);
+        statement.setString(4, customerPostalCode);
+        statement.setString(5, customerPhoneNumber);
+        statement.setInt(6, customerDivisionID);
+
+        statement.execute();
+
+    }
+
+
+
     public static void deleteCustomer(int customerID) throws SQLException {
         String sqlDC = "DELETE from customers WHERE Customer_ID = ?";
         try (PreparedStatement psDC = JDBC.getConnection().prepareStatement(sqlDC)) {
@@ -66,5 +83,6 @@ public class CustomerHelper {
         }
         return customerID;
     }
+
 
 }

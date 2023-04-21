@@ -62,7 +62,9 @@ public class Homepage {
             newStage.setScene(scene);
 
             EditCustomer editCustomer = loader.getController();
-            editCustomer.setIDField(selectedCustomer.getCustomerID());
+            editCustomer.setCustomerData(selectedCustomer.getCustomerID(), selectedCustomer.getCustomerName(), selectedCustomer.getCustomerPhoneNumber(),
+                    selectedCustomer.getCustomerAddress(), selectedCustomer.getCustomerPostalCode(), selectedCustomer.getCustomerCountry(), selectedCustomer.getCustomerDivision());
+
 
             newStage.show();
             Stage currentStage = (Stage) addCustomerButton.getScene().getWindow();

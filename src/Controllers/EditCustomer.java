@@ -2,6 +2,7 @@ package Controllers;
 
 import Database.CustomerHelper;
 import Database.DivisionHelper;
+import Models.Customer;
 import Models.Division;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -26,26 +27,56 @@ public class EditCustomer {
     @FXML private Button submitButton;
     @FXML private TextField idField;
     private int customerID;
+    private String customerName;
+    private String customerNumber;
+    private String customerAddress;
+    private String customerPostalCode;
+    private String customerCountry;
+    private String customerDivision;
 
 
-    public void initialize() {
+    public void initialize() throws SQLException {
         submitButton.setFocusTraversable(true);
         Platform.runLater(() -> submitButton.requestFocus());
 
-        countryComboBox.setOnAction(event -> {
-            try {
-                divisionSelector();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
+
 
     }
 
-    public void setIDField(int customerID) {
+    public void setCustomerData(int customerID, String customerName, String customerNumber, String customerAddress, String customerPostalCode,
+                                String customerCountry, String customerDivision) {
         this.customerID = customerID;
+        this.customerName = customerName;
+        this.customerNumber = customerNumber;
+        this.customerAddress = customerAddress;
+        this.customerPostalCode = customerPostalCode;
+        this.customerCountry = customerCountry;
+        this.customerDivision = customerDivision;
+
         idField.setText(Integer.toString(customerID));
+        nameTextField.setText(customerName);
+        numberTextField.setText(customerNumber);
+        addressTextField.setText(customerAddress);
+        postalCodeTextField.setText(customerPostalCode);
+
+        System.out.println(customerCountry);
+
+        if (customerCountry.equals("U.S")) {
+            countryComboBox.setValue("United States");
+        } else if (customerCountry.equals("UK")) {
+            countryComboBox.setValue("United Kingdom");
+        } else if (customerCountry.equals("Canada")) {
+            countryComboBox.setValue("Canada");
+        }
+
+        try {
+            divisionSelector();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
+
 
     public void divisionSelector() throws SQLException {
         int countryID;
