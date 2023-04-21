@@ -51,6 +51,15 @@ public class CustomerHelper {
 
     }
 
+    public static void deleteCustomer(int customerID) throws SQLException {
+        String sqlDC = "DELETE from customers WHERE Customer_ID = ?";
+        try (PreparedStatement psDC = JDBC.getConnection().prepareStatement(sqlDC)) {
+            psDC.setInt(1, customerID);
+            psDC.execute();
+        }
+    }
+
+
     public static int maxID() throws SQLException {
         int customerID = 0;
         PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT MAX(Customer_ID) FROM customers");
