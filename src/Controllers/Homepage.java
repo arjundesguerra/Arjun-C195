@@ -85,8 +85,11 @@ public class Homepage {
             if (alert.getResult() == ButtonType.YES) {
                 CustomerHelper.deleteCustomer(selectedCustomer.getCustomerID());
                 customerTable.setItems(CustomerHelper.fetchCustomers());
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully.", ButtonType.OK);
+                successAlert.showAndWait();
             }
         }
     }
+
 
 }
