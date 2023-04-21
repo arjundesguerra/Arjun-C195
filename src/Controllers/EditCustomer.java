@@ -5,6 +5,7 @@ import Database.DivisionHelper;
 import Models.Customer;
 import Models.Division;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,18 +15,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class EditCustomer {
 
+    @FXML private TextField idField;
     @FXML private TextField nameTextField;
     @FXML private TextField numberTextField;
     @FXML private TextField addressTextField;
     @FXML private TextField postalCodeTextField;
     @FXML private ComboBox countryComboBox;
-    @FXML private ComboBox divisionComboBox;
+    @FXML private ComboBox<Division> divisionComboBox;
     @FXML private Button cancelButton;
     @FXML private Button submitButton;
-    @FXML private TextField idField;
     private int customerID;
     private String customerName;
     private String customerNumber;
@@ -42,6 +44,7 @@ public class EditCustomer {
 
     public void setCustomerData(int customerID, String customerName, String customerNumber, String customerAddress, String customerPostalCode,
                                 String customerCountry, String customerDivision) {
+
         this.customerID = customerID;
         this.customerName = customerName;
         this.customerNumber = customerNumber;
@@ -55,7 +58,6 @@ public class EditCustomer {
         numberTextField.setText(customerNumber);
         addressTextField.setText(customerAddress);
         postalCodeTextField.setText(customerPostalCode);
-        divisionComboBox.setValue(customerDivision);
 
         if (customerCountry.equals("U.S")) {
             countryComboBox.setValue("United States");
@@ -73,7 +75,6 @@ public class EditCustomer {
 
     }
 
-
     public void divisionSelector() throws SQLException {
         int countryID;
         if (countryComboBox.getValue().equals("United States")) {
@@ -89,7 +90,7 @@ public class EditCustomer {
     }
 
     public void submit() throws IOException, SQLException {
-        int customerID = CustomerHelper.maxID();
+        int customerID = Integer.parseInt(idField.getText());
         String customerName = nameTextField.getText();
         String customerNumber = numberTextField.getText();
         String customerAddress = addressTextField.getText();
@@ -100,9 +101,8 @@ public class EditCustomer {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill out all fields.", ButtonType.OK);
             alert.showAndWait();
         } else {
-            Division selectedDivision = (Division) divisionComboBox.getValue();
-            int customerDivision = selectedDivision.getDivisionID();
-            CustomerHelper.createCustomer(customerID, customerName, customerAddress, customerPostalCode, customerNumber, customerDivision);
+            int customerDivision = divisionComboBox.getValue().getDivisionID();
+            CustomerHelper.editCustomer(customerID, customerName, customerAddress, customerPostalCode, customerNumber, customerDivision);
             goToHomepage();
         }
     }
