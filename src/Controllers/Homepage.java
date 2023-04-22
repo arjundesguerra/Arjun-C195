@@ -1,5 +1,6 @@
 package Controllers;
 
+import Database.AppointmentHelper;
 import Database.CustomerHelper;
 import Models.Customer;
 import javafx.fxml.FXML;
@@ -16,24 +17,52 @@ public class Homepage {
 
     @FXML private Button addCustomerButton;
     @FXML private TableView customerTable;
-    @FXML private TableColumn idColumn;
-    @FXML private TableColumn nameColumn;
-    @FXML private TableColumn numberColumn;
-    @FXML private TableColumn addressColumn;
-    @FXML private TableColumn divisionColumn;
-    @FXML private TableColumn countryColumn;
-    @FXML private TableColumn postalCodeColumn;
+    @FXML private TableColumn customerIdColumn;
+    @FXML private TableColumn customerNameColumn;
+    @FXML private TableColumn customerNumberColumn;
+    @FXML private TableColumn customerAddressColumn;
+    @FXML private TableColumn customerDivisionColumn;
+    @FXML private TableColumn customerCountryColumn;
+    @FXML private TableColumn customerPostalCodeColumn;
+    @FXML private TableView appointmentTable;
+    @FXML private TableColumn appointmentIDColumn;
+    @FXML private TableColumn appointmentTitleColumn;
+    @FXML private TableColumn appointmentDescriptionColumn;
+    @FXML private TableColumn appointmentLocationColumn;
+    @FXML private TableColumn appointmentTypeColumn;
+    @FXML private TableColumn appointmentStartColumn;
+    @FXML private TableColumn appointmentEndColumn;
+    @FXML private TableColumn appointmentCustomerID;
+    @FXML private TableColumn appointmentUserID;
+    @FXML private TableColumn appointmentContactID;
+
+
 
     public void initialize() throws SQLException {
         customerTable.setItems(CustomerHelper.fetchCustomers());
 
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        numberColumn.setCellValueFactory(new PropertyValueFactory<>("customerPhoneNumber"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
-        divisionColumn.setCellValueFactory(new PropertyValueFactory<>("customerDivision"));
-        countryColumn.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
-        postalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
+        customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        customerNumberColumn.setCellValueFactory(new PropertyValueFactory<>("customerPhoneNumber"));
+        customerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        customerDivisionColumn.setCellValueFactory(new PropertyValueFactory<>("customerDivision"));
+        customerCountryColumn.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
+        customerPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
+
+        appointmentTable.setItems(AppointmentHelper.fetchAppointments());
+        appointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+        appointmentDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+        appointmentLocationColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
+        appointmentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
+        appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+        appointmentEndColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+        appointmentCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        appointmentUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        appointmentContactID.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+
+
+
     }
 
     public void goToAddCustomer() throws IOException {
