@@ -61,8 +61,6 @@ public class Homepage {
         appointmentUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
         appointmentContactID.setCellValueFactory(new PropertyValueFactory<>("contactID"));
 
-
-
     }
 
     public void goToAddCustomer() throws IOException {

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.collections.FXCollections?>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.AddAppointment" prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <Text layoutX="47.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer ID: " />
+        <Text layoutX="47.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
+        <Text layoutX="47.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number:" />
+        <Text layoutX="47.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
+        <Text layoutX="337.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" />
+        <Text layoutX="47.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postal Code:" />
+        <Text layoutX="337.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State/Province:" />
+        <TextField editable="false" layoutX="156.0" layoutY="32.0" promptText="Disabled - Auto Gen" />
+        <TextField fx:id="nameTextField" layoutX="156.0" layoutY="82.0" />
+        <TextField fx:id="numberTextField" layoutX="156.0" layoutY="132.0" />
+        <TextField fx:id="addressTextField" layoutX="156.0" layoutY="182.0" />
+        <TextField fx:id="postalCodeTextField" layoutX="156.0" layoutY="232.0" />
+        <Button fx:id="cancelButton" layoutX="420.0" layoutY="232.0" mnemonicParsing="false" onAction="#goToHomepage" prefHeight="28.0" prefWidth="101.0" text="Cancel" />
+        <Button fx:id="submitButton" layoutX="420.0" layoutY="182.0" mnemonicParsing="false"  prefHeight="28.0" prefWidth="101.0" text="Submit" />
+        <ComboBox fx:id="countryComboBox" layoutX="440.0" layoutY="32.0" prefWidth="150.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="United States" />
+                    <String fx:value="United Kingdom" />
+                    <String fx:value="Canada" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <ComboBox fx:id="divisionComboBox" layoutX="440.0" layoutY="82.0" prefWidth="150.0" />
+    </children>
+</AnchorPane>
+
