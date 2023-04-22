@@ -53,14 +53,14 @@
                            <columns>
                               <TableColumn fx:id="idColumn1" prefWidth="57.0" text="Appt. ID" />
                               <TableColumn fx:id="nameColumn1" prefWidth="63.0" text="Title" />
-                              <TableColumn fx:id="numberColumn1" prefWidth="143.0" text="Description" />
-                              <TableColumn fx:id="addressColumn1" prefWidth="84.0" text="Location" />
-                              <TableColumn fx:id="divisionColumn1" prefWidth="89.0" text="Contact ID" />
-                              <TableColumn fx:id="countryColumn1" prefWidth="60.0" text="Type" />
-                              <TableColumn fx:id="postalCodeColumn1" minWidth="0.0" prefWidth="130.0" text="Start Date and Time" />
-                              <TableColumn prefWidth="123.0" text="End Date and Time" />
-                              <TableColumn prefWidth="77.0" text="Customer ID" />
-                              <TableColumn prefWidth="225.0" text="User ID" />
+                              <TableColumn fx:id="numberColumn1" prefWidth="120.0" text="Description" />
+                              <TableColumn fx:id="addressColumn1" prefWidth="83.0" text="Location" />
+                              <TableColumn fx:id="countryColumn1" prefWidth="43.0" text="Type" />
+                              <TableColumn fx:id="postalCodeColumn1" minWidth="0.0" prefWidth="126.0" text="Start Date and Time" />
+                              <TableColumn prefWidth="122.0" text="End Date and Time" />
+                              <TableColumn text="Customer ID" />
+                              <TableColumn minWidth="0.0" prefWidth="67.0" text="User ID" />
+                              <TableColumn fx:id="divisionColumn1" prefWidth="65.0" text="Contact ID" />
                            </columns>
                         </TableView>
                         <Button fx:id="addCustomerButton1" layoutX="70.0" layoutY="420.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="180.0" text="Add Appointment" />
