@@ -149,15 +149,15 @@ public class EditCustomer {
         } else {
             int customerDivision = divisionComboBox.getValue().getDivisionID();
             CustomerHelper.editCustomer(customerID, customerName, customerAddress, customerPostalCode, customerNumber, customerDivision);
-            goToHomepage();
+            goToCustomerHomepage();
         }
     }
 
-    public void goToHomepage() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/Homepage.fxml"));
+    public void goToCustomerHomepage() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/CustomerHomepage.fxml"));
         Scene scene = new Scene(root);
         Stage newStage = new Stage();
-        newStage.setTitle("Homepage");
+        newStage.setTitle("Customer Homepage");
         newStage.setScene(scene);
         newStage.show();
         Stage currentStage = (Stage) cancelButton.getScene().getWindow();

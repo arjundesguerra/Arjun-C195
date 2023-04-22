@@ -22,7 +22,7 @@
       <TextField fx:id="numberTextField" layoutX="156.0" layoutY="132.0" />
       <TextField fx:id="addressTextField" layoutX="156.0" layoutY="182.0" />
       <TextField fx:id="postalCodeTextField" layoutX="156.0" layoutY="232.0" />
-      <Button fx:id="cancelButton" layoutX="420.0" layoutY="232.0" mnemonicParsing="false" onAction="#goToHomepage" prefHeight="28.0" prefWidth="101.0" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="420.0" layoutY="232.0" mnemonicParsing="false" onAction="#goToCustomerHomepage" prefHeight="28.0" prefWidth="101.0" text="Cancel" />
       <Button fx:id="submitButton" layoutX="420.0" layoutY="182.0" mnemonicParsing="false" onAction="#submit" prefHeight="28.0" prefWidth="101.0" text="Submit" />
       <ComboBox fx:id="countryComboBox" layoutX="440.0" layoutY="32.0" prefWidth="150.0">
          <items>

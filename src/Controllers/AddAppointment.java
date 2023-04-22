@@ -14,10 +14,10 @@ public class AddAppointment {
     @FXML private Button cancelButton;
 
     public void goToHomepage() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/Homepage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/AppointmentHomepage.fxml"));
         Scene scene = new Scene(root);
         Stage newStage = new Stage();
-        newStage.setTitle("Homepage");
+        newStage.setTitle("Appointment Homepage");
         newStage.setScene(scene);
         newStage.show();
         Stage currentStage = (Stage) cancelButton.getScene().getWindow();
