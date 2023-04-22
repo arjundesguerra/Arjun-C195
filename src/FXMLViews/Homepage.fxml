@@ -22,7 +22,7 @@
                               <Font size="21.0" />
                            </font>
                         </Text>
-                        <TableView fx:id="customerTable" layoutX="37.0" layoutY="98.0" prefHeight="305.0" prefWidth="827.0">
+                        <TableView fx:id="customerTable" layoutX="38.0" layoutY="84.0" prefHeight="305.0" prefWidth="827.0">
                           <columns>
                             <TableColumn fx:id="idColumn" prefWidth="82.0" text="Customer ID" />
                             <TableColumn fx:id="nameColumn" prefWidth="133.0" text="Customer Name" />
@@ -33,16 +33,40 @@
                               <TableColumn fx:id="postalCodeColumn" prefWidth="95.0" text="Postal Code" />
                           </columns>
                         </TableView>
-                        <Button fx:id="addCustomerButton" layoutX="70.0" layoutY="425.0" mnemonicParsing="false" onAction="#goToAddCustomer" prefHeight="33.0" prefWidth="180.0" text="Add Customer" />
-                        <Button fx:id="editCustomerButton" layoutX="361.0" layoutY="425.0" mnemonicParsing="false" onAction="#goToEditCustomer" prefHeight="33.0" prefWidth="180.0" text="Edit Customer" />
-                        <Button fx:id="deleteCustomerButton" layoutX="650.0" layoutY="425.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="33.0" prefWidth="180.0" text="Delete Customer" />
+                        <Button fx:id="addCustomerButton" layoutX="70.0" layoutY="420.0" mnemonicParsing="false" onAction="#goToAddCustomer" prefHeight="33.0" prefWidth="180.0" text="Add Customer" />
+                        <Button fx:id="editCustomerButton" layoutX="361.0" layoutY="420.0" mnemonicParsing="false" onAction="#goToEditCustomer" prefHeight="33.0" prefWidth="180.0" text="Edit Customer" />
+                        <Button fx:id="deleteCustomerButton" layoutX="650.0" layoutY="420.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="33.0" prefWidth="180.0" text="Delete Customer" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Untitled Tab 2">
+          <Tab text="Appointments">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="388.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments" textAlignment="CENTER">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="customerTable1" layoutX="38.0" layoutY="84.0" prefHeight="305.0" prefWidth="827.0">
+                           <columns>
+                              <TableColumn fx:id="idColumn1" prefWidth="57.0" text="Appt. ID" />
+                              <TableColumn fx:id="nameColumn1" prefWidth="63.0" text="Title" />
+                              <TableColumn fx:id="numberColumn1" prefWidth="143.0" text="Description" />
+                              <TableColumn fx:id="addressColumn1" prefWidth="84.0" text="Location" />
+                              <TableColumn fx:id="divisionColumn1" prefWidth="89.0" text="Contact ID" />
+                              <TableColumn fx:id="countryColumn1" prefWidth="60.0" text="Type" />
+                              <TableColumn fx:id="postalCodeColumn1" minWidth="0.0" prefWidth="130.0" text="Start Date and Time" />
+                              <TableColumn prefWidth="123.0" text="End Date and Time" />
+                              <TableColumn prefWidth="77.0" text="Customer ID" />
+                              <TableColumn prefWidth="225.0" text="User ID" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="addCustomerButton1" layoutX="70.0" layoutY="420.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="180.0" text="Add Appointment" />
+                        <Button fx:id="addCustomerButton11" layoutX="361.0" layoutY="420.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="180.0" text="Edit Appointment" />
+                        <Button fx:id="addCustomerButton111" layoutX="650.0" layoutY="420.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="180.0" text="Delete Appointment" />
+                     </children></AnchorPane>
             </content>
           </Tab>
         </tabs>
