@@ -77,7 +77,7 @@ public class AddCustomer {
         newStage.setTitle("Customer Homepage");
         newStage.setScene(scene);
         newStage.show();
-        Stage currentStage = (Stage) cancelButton.getScene().getWindow();
+        Stage currentStage = (Stage) nameTextField.getScene().getWindow();
         currentStage.close();
     }
 

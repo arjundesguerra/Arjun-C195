@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.text.Text?>
+<?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.AddAppointment" prefHeight="295.0" prefWidth="619.0">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="310.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddAppointment">
     <children>
-        <Text layoutX="47.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer ID: " />
-        <Text layoutX="47.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
-        <Text layoutX="47.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number:" />
-        <Text layoutX="47.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
-        <Text layoutX="337.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" />
-        <Text layoutX="47.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postal Code:" />
-        <Text layoutX="337.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State/Province:" />
-        <TextField editable="false" layoutX="156.0" layoutY="32.0" promptText="Disabled - Auto Gen" />
-        <TextField fx:id="nameTextField" layoutX="156.0" layoutY="82.0" />
-        <TextField fx:id="numberTextField" layoutX="156.0" layoutY="132.0" />
-        <TextField fx:id="addressTextField" layoutX="156.0" layoutY="182.0" />
-        <TextField fx:id="postalCodeTextField" layoutX="156.0" layoutY="232.0" />
-        <Button fx:id="cancelButton" layoutX="420.0" layoutY="232.0" mnemonicParsing="false" onAction="#goToHomepage" prefHeight="28.0" prefWidth="101.0" text="Cancel" />
-        <Button fx:id="submitButton" layoutX="420.0" layoutY="182.0" mnemonicParsing="false"  prefHeight="28.0" prefWidth="101.0" text="Submit" />
-        <ComboBox fx:id="countryComboBox" layoutX="440.0" layoutY="32.0" prefWidth="150.0">
+        <Text layoutX="76.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer ID: " />
+        <Text layoutX="76.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
+        <Text layoutX="76.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number:" />
+        <Text layoutX="76.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
+        <Text layoutX="366.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" />
+        <Text layoutX="76.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Postal Code:" />
+        <Text layoutX="366.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State/Province:" />
+        <TextField editable="false" layoutX="185.0" layoutY="34.0" promptText="Disabled - Auto Gen" />
+        <TextField fx:id="nameTextField" layoutX="185.0" layoutY="84.0" />
+        <TextField fx:id="numberTextField" layoutX="185.0" layoutY="134.0" />
+        <TextField fx:id="addressTextField" layoutX="185.0" layoutY="184.0" />
+        <TextField fx:id="postalCodeTextField" layoutX="185.0" layoutY="234.0" />
+        <Button fx:id="submitButton" layoutX="481.0" layoutY="233.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="126.0" text="Submit" />
+        <ComboBox fx:id="countryComboBox" layoutX="469.0" layoutY="34.0" prefWidth="150.0">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="United States" />
@@ -33,7 +34,15 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <ComboBox fx:id="divisionComboBox" layoutX="440.0" layoutY="82.0" prefWidth="150.0" />
+        <ComboBox fx:id="divisionComboBox" layoutX="469.0" layoutY="84.0" prefWidth="150.0" />
+        <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToAppointmentHomepage">
+            <graphic>
+                <ImageView fitHeight="29.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../Images/back-arrow-icon.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
     </children>
 </AnchorPane>
-

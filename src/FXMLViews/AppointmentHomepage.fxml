@@ -1,52 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.AppointmentHomepage" prefHeight="505.0" prefWidth="960.0">
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-        <Text layoutX="418.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments"
-              textAlignment="CENTER">
-            <font>
-                <Font size="21.0"/>
-            </font>
-        </Text>
-        <TableView fx:id="appointmentTable" layoutX="41.0" layoutY="85.0" prefHeight="305.0" prefWidth="878.0">
-            <columns>
-                <TableColumn fx:id="appointmentIDColumn" prefWidth="57.0" text="Appt. ID"/>
-                <TableColumn fx:id="appointmentTitleColumn" prefWidth="63.0" text="Title"/>
-                <TableColumn fx:id="appointmentDescriptionColumn" prefWidth="110.0" text="Description"/>
-                <TableColumn fx:id="appointmentLocationColumn" prefWidth="70.0" text="Location"/>
-                <TableColumn fx:id="appointmentTypeColumn" prefWidth="100.0" text="Type"/>
-                <TableColumn fx:id="appointmentStartColumn" minWidth="0.0" prefWidth="129.0" text="Start Timestamp"/>
-                <TableColumn fx:id="appointmentEndColumn" prefWidth="129.0" text="End Timestamp"/>
-                <TableColumn fx:id="appointmentCustomerID" prefWidth="78.0" text="Customer ID"/>
-                <TableColumn fx:id="appointmentUserID" minWidth="0.0" prefWidth="72.0" text="User ID"/>
-                <TableColumn fx:id="appointmentContactID" prefWidth="72.0" text="Contact ID"/>
-            </columns>
-        </TableView>
-        <Button fx:id="addAppointmentButton" layoutX="87.0" layoutY="430.0" mnemonicParsing="false"
-                onAction="#goToAddAppointment" prefHeight="33.0" prefWidth="180.0" text="Add Appointment"/>
-        <Button fx:id="editAppointmentButton" layoutX="391.0" layoutY="430.0" mnemonicParsing="false" prefHeight="33.0"
-                prefWidth="180.0" text="Edit Appointment"/>
-        <Button fx:id="deleteAppointmentButton" layoutX="694.0" layoutY="430.0" mnemonicParsing="false"
-                prefHeight="33.0" prefWidth="180.0" text="Delete Appointment"/>
-        <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToHomepage">
-            <graphic>
-                <ImageView fitHeight="23.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../Images/back-arrow-icon.png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-    </AnchorPane>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="505.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AppointmentHomepage">
+     <Text layoutX="418.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments" textAlignment="CENTER">
+         <font>
+             <Font size="21.0" />
+         </font>
+     </Text>
+     <TableView fx:id="appointmentTable" layoutX="41.0" layoutY="85.0" prefHeight="305.0" prefWidth="878.0">
+         <columns>
+             <TableColumn fx:id="appointmentIDColumn" prefWidth="57.0" text="Appt. ID" />
+             <TableColumn fx:id="appointmentTitleColumn" prefWidth="63.0" text="Title" />
+             <TableColumn fx:id="appointmentDescriptionColumn" prefWidth="110.0" text="Description" />
+             <TableColumn fx:id="appointmentLocationColumn" prefWidth="70.0" text="Location" />
+             <TableColumn fx:id="appointmentTypeColumn" prefWidth="100.0" text="Type" />
+             <TableColumn fx:id="appointmentStartColumn" minWidth="0.0" prefWidth="129.0" text="Start Timestamp" />
+             <TableColumn fx:id="appointmentEndColumn" prefWidth="129.0" text="End Timestamp" />
+             <TableColumn fx:id="appointmentCustomerID" prefWidth="78.0" text="Customer ID" />
+             <TableColumn fx:id="appointmentUserID" minWidth="0.0" prefWidth="72.0" text="User ID" />
+             <TableColumn fx:id="appointmentContactID" prefWidth="72.0" text="Contact ID" />
+         </columns>
+     </TableView>
+     <Button fx:id="addAppointmentButton" layoutX="87.0" layoutY="430.0" mnemonicParsing="false" onAction="#goToAddAppointment" prefHeight="33.0" prefWidth="180.0" text="Add Appointment" />
+     <Button fx:id="editAppointmentButton" layoutX="391.0" layoutY="430.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="180.0" text="Edit Appointment" />
+     <Button fx:id="deleteAppointmentButton" layoutX="694.0" layoutY="430.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="180.0" text="Delete Appointment" />
+     <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToHomepage">
+         <graphic>
+             <ImageView fitHeight="23.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                 <image>
+                     <Image url="@../Images/back-arrow-icon.png" />
+                 </image>
+             </ImageView>
+         </graphic>
+     </Button>
 
 </AnchorPane>

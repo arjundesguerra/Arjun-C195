@@ -34,10 +34,7 @@ public class EditCustomer {
     private ComboBox countryComboBox;
     @FXML
     private ComboBox<Division> divisionComboBox;
-    @FXML
-    private Button cancelButton;
-    @FXML
-    private Button submitButton;
+    @FXML private Button submitButton;
     private int customerID;
     private String customerName;
     private String customerNumber;
@@ -160,7 +157,7 @@ public class EditCustomer {
         newStage.setTitle("Customer Homepage");
         newStage.setScene(scene);
         newStage.show();
-        Stage currentStage = (Stage) cancelButton.getScene().getWindow();
+        Stage currentStage = (Stage) nameTextField.getScene().getWindow();
         currentStage.close();
     }
 
