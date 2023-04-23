@@ -12,16 +12,16 @@ import java.io.IOException;
 
 public class AddAppointment {
 
-    @FXML private TextField nameTextField;
+    @FXML private TextField titleTextField;
 
     public void goToAppointmentHomepage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/AppointmentHomepage.fxml"));
         Scene scene = new Scene(root);
         Stage newStage = new Stage();
-        newStage.setTitle("Appointment Homepage");
+        newStage.setTitle("Appointments Homepage");
         newStage.setScene(scene);
         newStage.show();
-        Stage currentStage = (Stage) nameTextField.getScene().getWindow();
+        Stage currentStage = (Stage) titleTextField.getScene().getWindow();
         currentStage.close();
     }
 }

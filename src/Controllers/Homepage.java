@@ -29,7 +29,7 @@ public class Homepage {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/CustomerHomepage.fxml"));
         Scene scene = new Scene(root);
         Stage newStage = new Stage();
-        newStage.setTitle("Customer Homepage");
+        newStage.setTitle("Customers Homepage");
         newStage.setScene(scene);
         newStage.show();
         Stage currentStage = (Stage) goToCustomersButton.getScene().getWindow();

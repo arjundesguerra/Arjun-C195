@@ -154,7 +154,7 @@ public class EditCustomer {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/CustomerHomepage.fxml"));
         Scene scene = new Scene(root);
         Stage newStage = new Stage();
-        newStage.setTitle("Customer Homepage");
+        newStage.setTitle("Customers Homepage");
         newStage.setScene(scene);
         newStage.show();
         Stage currentStage = (Stage) nameTextField.getScene().getWindow();
