@@ -1,7 +1,9 @@
 package Controllers;
 
+import Database.ContactHelper;
 import Database.CustomerHelper;
 import Database.UserHelper;
+import Models.Contact;
 import Models.Customer;
 import Models.User;
 import javafx.application.Platform;
@@ -23,6 +25,7 @@ public class AddAppointment {
     @FXML private TextField titleTextField;
     @FXML private ComboBox customerComboBox;
     @FXML private ComboBox userComboBox;
+    @FXML private ComboBox contactComboBox;
     @FXML private Button submitButton;
 
     public void initialize() throws SQLException {
@@ -52,6 +55,11 @@ public class AddAppointment {
         ObservableList<User> usersList = UserHelper.fetchUsers();
         for (User user : usersList) {
             userComboBox.getItems().add(user.getUsername());
+        }
+
+        ObservableList<Contact> contactsList = ContactHelper.fetchContacts();
+        for (Contact contact : contactsList) {
+            contactComboBox.getItems().add(contact.getContactName());
         }
     }
 
