@@ -1,13 +1,13 @@
 package Models;
 
 public class Customer {
-    int customerID;
-    String customerName;
-    String customerPhoneNumber;
-    String customerAddress;
-    String customerDivision;
-    String customerCountry;
-    String customerPostalCode;
+    private int customerID;
+    private String customerName;
+    private String customerPhoneNumber;
+    private String customerAddress;
+    private String customerDivision;
+    private String customerCountry;
+    private String customerPostalCode;
 
     public Customer(int customerID, String customerName, String customerPhoneNumber, String customerAddress, String customerDivision, String customerCountry, String customerPostalCode) {
         this.customerID = customerID;

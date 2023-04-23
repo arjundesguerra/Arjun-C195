@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 
 public class Appointment {
 
-    int appointmentID;
-    String appointmentTitle;
-    String appointmentDescription;
-    String appointmentLocation;
-    String appointmentType;
-    LocalDateTime startDateTime;
-    LocalDateTime endDateTime;
-    int customerID;
-    int userID;
-    int contactID;
+    private int appointmentID;
+    private String appointmentTitle;
+    private String appointmentDescription;
+    private String appointmentLocation;
+    private String appointmentType;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
+    private int customerID;
+    private int userID;
+    private int contactID;
 
 
     public Appointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType,
