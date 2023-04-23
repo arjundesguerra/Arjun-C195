@@ -39,9 +39,9 @@
       <ComboBox fx:id="contactComboBox" layoutX="185.0" layoutY="164.0" prefWidth="159.5" />
       <TextField fx:id="titleTextField" editable="false" layoutX="185.0" layoutY="206.0" />
       <TextField fx:id="descriptionTextField" editable="false" layoutX="185.0" layoutY="250.0" />
-      <ComboBox fx:id="typeComboBox" layoutX="440.0" layoutY="78.0" prefWidth="159.5" />
       <DatePicker fx:id="datePicker" layoutX="440.0" layoutY="120.0" prefHeight="26.0" prefWidth="160.0" />
       <ComboBox fx:id="startTimeComboBox" layoutX="440.0" layoutY="163.0" prefWidth="159.5" />
       <ComboBox fx:id="endTimeComboBox" layoutX="440.0" layoutY="206.0" prefWidth="159.5" />
+      <TextField fx:id="typeTextField" editable="false" layoutX="440.0" layoutY="77.0" />
     </children>
 </AnchorPane>
