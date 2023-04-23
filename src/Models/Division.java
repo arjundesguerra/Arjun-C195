@@ -15,7 +15,6 @@ public class Division {
 
     public String getDivisionName() { return divisionName; }
 
-
     @Override
     public String toString() { return divisionName; }
 

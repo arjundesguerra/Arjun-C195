@@ -1,7 +1,9 @@
 package Controllers;
 
 import Database.CustomerHelper;
+import Database.UserHelper;
 import Models.Customer;
+import Models.User;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,13 +22,14 @@ public class AddAppointment {
 
     @FXML private TextField titleTextField;
     @FXML private ComboBox customerComboBox;
+    @FXML private ComboBox userComboBox;
     @FXML private Button submitButton;
 
     public void initialize() throws SQLException {
         submitButton.setFocusTraversable(true);
         Platform.runLater(() -> submitButton.requestFocus());
 
-        setCustomerComboBox();
+        setComboBoxes();
     }
 
     public void goToAppointmentHomepage() throws IOException {
@@ -40,11 +43,19 @@ public class AddAppointment {
         currentStage.close();
     }
 
-    public void setCustomerComboBox() throws SQLException {
+    public void setComboBoxes() throws SQLException {
         ObservableList<Customer> customerList = CustomerHelper.fetchCustomers();
         for (Customer customer : customerList) {
             customerComboBox.getItems().add(customer.getCustomerName());
         }
 
+        ObservableList<User> usersList = UserHelper.fetchUsers();
+        for (User user : usersList) {
+            userComboBox.getItems().add(user.getUsername());
+        }
     }
+
+
+
+
 }
