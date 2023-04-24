@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class AppointmentHelper {
@@ -45,6 +46,25 @@ public class AppointmentHelper {
             appointmentID = resultSet.getInt(1) + 1;
         }
         return appointmentID;
+    }
+
+    public static void createAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType,
+                                         LocalDateTime startDateTime, LocalDateTime endDateTime, int customerID, int userID, int contactID) throws SQLException {
+
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("INSERT INTO appointments VALUES(?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP , 'user', CURRENT_TIMESTAMP, 'user', ?, ?, ?);");
+        statement.setInt(1, appointmentID);
+        statement.setString(2, appointmentTitle);
+        statement.setString(3, appointmentDescription);
+        statement.setString(4, appointmentLocation);
+        statement.setString(5, appointmentType);
+        statement.setTimestamp(6, Timestamp.valueOf(startDateTime));
+        statement.setTimestamp(7, Timestamp.valueOf(endDateTime));
+        statement.setInt(8, customerID);
+        statement.setInt(9, userID);
+        statement.setInt(10, contactID);
+
+        statement.execute();
+
     }
 
 }

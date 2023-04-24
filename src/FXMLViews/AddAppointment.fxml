@@ -33,15 +33,15 @@
       <Text layoutX="76.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer:" />
       <Text layoutX="76.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" />
       <Text layoutX="76.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact:" />
-      <TextField fx:id="locationTextField" editable="false" layoutX="440.0" layoutY="35.0" />
       <ComboBox fx:id="customerComboBox" layoutX="185.0" layoutY="78.0" prefWidth="159.5" />
       <ComboBox fx:id="userComboBox" layoutX="185.0" layoutY="121.0" prefWidth="159.5" />
       <ComboBox fx:id="contactComboBox" layoutX="185.0" layoutY="164.0" prefWidth="159.5" />
-      <TextField fx:id="titleTextField" editable="false" layoutX="185.0" layoutY="206.0" />
-      <TextField fx:id="descriptionTextField" editable="false" layoutX="185.0" layoutY="250.0" />
-      <DatePicker fx:id="datePicker" layoutX="440.0" layoutY="120.0" prefHeight="26.0" prefWidth="160.0" />
+      <TextField fx:id="titleTextField" layoutX="185.0" layoutY="206.0" />
+      <TextField fx:id="descriptionTextField" layoutX="185.0" layoutY="250.0" />
+        <TextField fx:id="locationTextField" layoutX="440.0" layoutY="35.0" />
+        <TextField fx:id="typeTextField" layoutX="440.0" layoutY="77.0" />
+        <DatePicker fx:id="datePicker" layoutX="440.0" layoutY="120.0" prefHeight="26.0" prefWidth="160.0" />
       <ComboBox fx:id="startTimeComboBox" layoutX="440.0" layoutY="163.0" prefWidth="159.5" />
       <ComboBox fx:id="endTimeComboBox" layoutX="440.0" layoutY="206.0" prefWidth="159.5" />
-      <TextField fx:id="typeTextField" editable="false" layoutX="440.0" layoutY="77.0" />
     </children>
 </AnchorPane>

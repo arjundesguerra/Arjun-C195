@@ -14,14 +14,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,17 +47,6 @@ public class AddAppointment {
 
         setComboBoxes();
         setTimeComboBoxes();
-    }
-
-    public void goToAppointmentHomepage() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/AppointmentHomepage.fxml"));
-        Scene scene = new Scene(root);
-        Stage newStage = new Stage();
-        newStage.setTitle("Appointments Homepage");
-        newStage.setScene(scene);
-        newStage.show();
-        Stage currentStage = (Stage) titleTextField.getScene().getWindow();
-        currentStage.close();
     }
 
     public void setComboBoxes() throws SQLException {
@@ -97,17 +85,52 @@ public class AddAppointment {
         endTimeComboBox.setItems(timeObservableList);
     }
 
-    public void submit() throws SQLException {
+    public void submit() throws IOException, SQLException {
         // gets Strings for getIDbyName methods in helper classes
         String customerName = (String) customerComboBox.getValue();
         String userName = (String) userComboBox.getValue();
         String contactName = (String) contactComboBox.getValue();
 
+        if (customerComboBox.getValue() == null || userComboBox.getValue() == null || contactComboBox.getValue() == null || titleTextField.getText().isEmpty() || descriptionTextField.getText().isEmpty() || locationTextField.getText().isEmpty() || typeTextField.getText().isEmpty() || datePicker.getValue() == null || startTimeComboBox.getValue() == null || endTimeComboBox.getValue() == null) {
+            // display error message if any fields are empty
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill out all fields.");
+            alert.showAndWait();
+            return;
+        }
+
         int appointmentID = AppointmentHelper.maxID();
         int customerID = CustomerHelper.getCustomerIDByName(customerName);
         int userID = UserHelper.getUserIDByName(userName);
         int contactID = ContactHelper.getContactIDByName(contactName);
+        String title = titleTextField.getText();
+        String description = descriptionTextField.getText();
+        String location = locationTextField.getText();
+        String type = typeTextField.getText();
+        LocalDate date = datePicker.getValue();
+        String startTime = (String) startTimeComboBox.getValue();
+        String endTime = (String) endTimeComboBox.getValue();
 
+        // turns time strings to date time objects
+        LocalDateTime startDateTime = LocalDateTime.parse(date.toString() + " " + startTime + ":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        LocalDateTime endDateTime = LocalDateTime.parse(date.toString() + " " + endTime + ":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        AppointmentHelper.createAppointment(appointmentID, title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
+        goToAppointmentHomepage();
+
+    }
+
+    public void goToAppointmentHomepage() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/AppointmentHomepage.fxml"));
+        Scene scene = new Scene(root);
+        Stage newStage = new Stage();
+        newStage.setTitle("Appointments Homepage");
+        newStage.setScene(scene);
+        newStage.show();
+        Stage currentStage = (Stage) titleTextField.getScene().getWindow();
+        currentStage.close();
     }
 
 
