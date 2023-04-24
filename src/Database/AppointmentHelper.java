@@ -37,4 +37,14 @@ public class AppointmentHelper {
         return appointmentList;
     }
 
+    public static int maxID() throws SQLException {
+        int appointmentID = 0;
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT MAX(Appointment_ID) FROM appointments");
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            appointmentID = resultSet.getInt(1) + 1;
+        }
+        return appointmentID;
+    }
+
 }

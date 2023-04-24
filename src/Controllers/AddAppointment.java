@@ -1,5 +1,6 @@
 package Controllers;
 
+import Database.AppointmentHelper;
 import Database.ContactHelper;
 import Database.CustomerHelper;
 import Database.UserHelper;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -27,10 +29,15 @@ import java.util.List;
 
 public class AddAppointment {
 
-    @FXML private TextField titleTextField;
+
     @FXML private ComboBox customerComboBox;
     @FXML private ComboBox userComboBox;
     @FXML private ComboBox contactComboBox;
+    @FXML private TextField titleTextField;
+    @FXML private TextField descriptionTextField;
+    @FXML private TextField locationTextField;
+    @FXML private TextField typeTextField;
+    @FXML private DatePicker datePicker;
     @FXML private ComboBox startTimeComboBox;
     @FXML private ComboBox endTimeComboBox;
     @FXML private Button submitButton;
@@ -88,6 +95,19 @@ public class AddAppointment {
         ObservableList<String> timeObservableList = FXCollections.observableArrayList(timeList);
         startTimeComboBox.setItems(timeObservableList);
         endTimeComboBox.setItems(timeObservableList);
+    }
+
+    public void submit() throws SQLException {
+        // gets Strings for getIDbyName methods in helper classes
+        String customerName = (String) customerComboBox.getValue();
+        String userName = (String) userComboBox.getValue();
+        String contactName = (String) contactComboBox.getValue();
+
+        int appointmentID = AppointmentHelper.maxID();
+        int customerID = CustomerHelper.getCustomerIDByName(customerName);
+        int userID = UserHelper.getUserIDByName(userName);
+        int contactID = ContactHelper.getContactIDByName(contactName);
+
     }
 
 

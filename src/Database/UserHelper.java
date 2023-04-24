@@ -28,4 +28,15 @@ public class UserHelper {
         return usersList;
     }
 
+    public static int getUserIDByName(String userName) throws SQLException {
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT User_ID FROM users WHERE User_Name = ?");
+        statement.setString(1, userName);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt("User_ID");
+        } else {
+            throw new SQLException(userName + " not found");
+        }
+    }
+
 }
