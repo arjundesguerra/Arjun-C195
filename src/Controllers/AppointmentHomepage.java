@@ -1,13 +1,12 @@
 package Controllers;
 
 import Database.AppointmentHelper;
+import Models.Appointment;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -53,6 +52,23 @@ public class AppointmentHomepage {
         newStage.show();
         Stage currentStage = (Stage) addAppointmentButton.getScene().getWindow();
         currentStage.close();
+    }
+
+    public void deleteAppointment() throws SQLException {
+        Appointment selectedAppointment = (Appointment) appointmentTable.getSelectionModel().getSelectedItem();
+        if (selectedAppointment == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select an appointment to delete.", ButtonType.OK);
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this appointment?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                AppointmentHelper.deleteAppointment(selectedAppointment.getAppointmentID());
+                appointmentTable.setItems(AppointmentHelper.fetchAppointments());
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION, "Appointment deleted successfully.", ButtonType.OK);
+                successAlert.showAndWait();
+            }
+        }
     }
 
     public void goToHomepage() throws IOException {
