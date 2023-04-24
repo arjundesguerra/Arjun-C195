@@ -19,9 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +89,10 @@ public class AddAppointment {
         String userName = (String) userComboBox.getValue();
         String contactName = (String) contactComboBox.getValue();
 
-        if (customerComboBox.getValue() == null || userComboBox.getValue() == null || contactComboBox.getValue() == null || titleTextField.getText().isEmpty() || descriptionTextField.getText().isEmpty() || locationTextField.getText().isEmpty() || typeTextField.getText().isEmpty() || datePicker.getValue() == null || startTimeComboBox.getValue() == null || endTimeComboBox.getValue() == null) {
+        if (customerComboBox.getValue() == null || userComboBox.getValue() == null || contactComboBox.getValue() == null ||
+                titleTextField.getText().isEmpty() || descriptionTextField.getText().isEmpty() || locationTextField.getText().isEmpty() ||
+                typeTextField.getText().isEmpty() || datePicker.getValue() == null || startTimeComboBox.getValue() == null || endTimeComboBox.getValue() == null) {
+
             // display error message if any fields are empty
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -116,6 +117,37 @@ public class AddAppointment {
         // turns time strings to date time objects
         LocalDateTime startDateTime = LocalDateTime.parse(date.toString() + " " + startTime + ":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         LocalDateTime endDateTime = LocalDateTime.parse(date.toString() + " " + endTime + ":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        // Check if end time is after start time
+        if (endDateTime.isBefore(startDateTime)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("End time cannot be before start time.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Get the current date and time in EST
+        ZonedDateTime nowInEST = ZonedDateTime.now(ZoneId.of("America/New_York"));
+        LocalDate localDate = nowInEST.toLocalDate();
+
+        // Convert start and end times to ZonedDateTime objects in EST timezone
+        ZonedDateTime startInEST = startDateTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/New_York"));
+        ZonedDateTime endInEST = endDateTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/New_York"));
+
+        // Check if appointment starts before 8AM or ends after 10PM in EST timezone
+        if (startInEST.toLocalTime().isBefore(LocalTime.of(8, 0)) ||
+                endInEST.toLocalTime().isAfter(LocalTime.of(22, 0)) ||
+                endInEST.toLocalDate().isAfter(startInEST.toLocalDate()) && endInEST.toLocalTime().isBefore(LocalTime.of(8, 0))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Appointments can only be scheduled between 8AM and 10PM EST.");
+            alert.showAndWait();
+            return;
+        }
+
 
         AppointmentHelper.createAppointment(appointmentID, title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
         goToAppointmentHomepage();
