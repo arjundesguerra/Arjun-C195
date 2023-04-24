@@ -118,7 +118,7 @@ public class AddAppointment {
         LocalDateTime startDateTime = LocalDateTime.parse(date.toString() + " " + startTime + ":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         LocalDateTime endDateTime = LocalDateTime.parse(date.toString() + " " + endTime + ":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        // Check if end time is after start time
+        // checks if end time is after start time
         if (endDateTime.isBefore(startDateTime)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -128,15 +128,29 @@ public class AddAppointment {
             return;
         }
 
-        // Get the current date and time in EST
-        ZonedDateTime nowInEST = ZonedDateTime.now(ZoneId.of("America/New_York"));
-        LocalDate localDate = nowInEST.toLocalDate();
+        // checks if start and end times are equal
+        if (endDateTime.isEqual(startDateTime)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("An appointment cannot share start and end times.");
+            alert.showAndWait();
+            return;
+        }
 
-        // Convert start and end times to ZonedDateTime objects in EST timezone
+        // checks if the new appointment overlaps with existing appointments with the customer
+        if (AppointmentHelper.isAppointmentOverlap(startDateTime, endDateTime, customerID)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("This appointment overlaps with an existing appointment with this customer.");
+            alert.showAndWait();
+            return;
+        }
+
+        // checks if appointment starts before 8AM or ends after 10PM in EST timezone
         ZonedDateTime startInEST = startDateTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/New_York"));
         ZonedDateTime endInEST = endDateTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/New_York"));
-
-        // Check if appointment starts before 8AM or ends after 10PM in EST timezone
         if (startInEST.toLocalTime().isBefore(LocalTime.of(8, 0)) ||
                 endInEST.toLocalTime().isAfter(LocalTime.of(22, 0)) ||
                 endInEST.toLocalDate().isAfter(startInEST.toLocalDate()) && endInEST.toLocalTime().isBefore(LocalTime.of(8, 0))) {
@@ -147,7 +161,6 @@ public class AddAppointment {
             alert.showAndWait();
             return;
         }
-
 
         AppointmentHelper.createAppointment(appointmentID, title, description, location, type, startDateTime, endDateTime, customerID, userID, contactID);
         goToAppointmentHomepage();

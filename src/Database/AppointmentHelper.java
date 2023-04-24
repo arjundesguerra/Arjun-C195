@@ -75,4 +75,18 @@ public class AppointmentHelper {
         }
     }
 
+    public static boolean isAppointmentOverlap(LocalDateTime startDateTime, LocalDateTime endDateTime, int customerID) throws SQLException {
+        ObservableList<Appointment> appointments = fetchAppointments();
+
+        for (Appointment appointment : appointments) {
+            if (appointment.getCustomerID() == customerID && appointment.getStartDateTime().isBefore(endDateTime) && startDateTime.isBefore(appointment.getEndDateTime())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
 }
