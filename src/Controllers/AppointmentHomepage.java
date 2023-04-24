@@ -2,6 +2,7 @@ package Controllers;
 
 import Database.AppointmentHelper;
 import Models.Appointment;
+import Models.Customer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -52,6 +53,32 @@ public class AppointmentHomepage {
         newStage.show();
         Stage currentStage = (Stage) addAppointmentButton.getScene().getWindow();
         currentStage.close();
+    }
+
+    public void goToEditAppointment() throws IOException, SQLException {
+        Appointment selectedAppointment = (Appointment) appointmentTable.getSelectionModel().getSelectedItem();
+
+        if (selectedAppointment == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a customer to edit.", ButtonType.OK);
+            alert.showAndWait();
+        } else {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLViews/EditAppointment.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage newStage = new Stage();
+            newStage.setTitle("Edit Appointment");
+            newStage.setScene(scene);
+
+            EditAppointment editAppointment = loader.getController();
+            editAppointment.setAppointmentData(selectedAppointment.getAppointmentID(), selectedAppointment.getAppointmentTitle(), selectedAppointment.getAppointmentDescription(),
+                    selectedAppointment.getAppointmentLocation(),selectedAppointment.getAppointmentType(), selectedAppointment.getStartDateTime(), selectedAppointment.getEndDateTime(), selectedAppointment.getCustomerID(),
+                    selectedAppointment.getUserID(), selectedAppointment.getContactID());
+
+            newStage.show();
+            Stage currentStage = (Stage) addAppointmentButton.getScene().getWindow();
+            currentStage.close();
+        }
+
     }
 
     public void deleteAppointment() throws SQLException {

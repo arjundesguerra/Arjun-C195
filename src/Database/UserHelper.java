@@ -39,4 +39,15 @@ public class UserHelper {
         }
     }
 
+    public static String getUserNameByID(int userID) throws SQLException {
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT User_Name FROM users WHERE User_ID = ?");
+        statement.setInt(1, userID);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getString("User_Name");
+        } else {
+            throw new SQLException(userID + " not found");
+        }
+    }
+
 }

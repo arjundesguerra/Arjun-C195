@@ -40,4 +40,15 @@ public class ContactHelper {
         }
     }
 
+    public static String getContactNameByID(int contactID) throws SQLException {
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT Contact_Name FROM contacts WHERE Contact_ID = ?");
+        statement.setInt(1, contactID);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getString("Contact_Name");
+        } else {
+            throw new SQLException(contactID + " not found");
+        }
+    }
+
 }

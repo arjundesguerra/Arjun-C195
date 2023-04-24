@@ -74,7 +74,22 @@ public class CustomerHomepage {
         }
     }
 
-
+    public void deleteCustomer() throws SQLException {
+        Customer selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
+        if (selectedCustomer == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a customer to delete.", ButtonType.OK);
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                CustomerHelper.deleteCustomer(selectedCustomer.getCustomerID());
+                customerTable.setItems(CustomerHelper.fetchCustomers());
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully.", ButtonType.OK);
+                successAlert.showAndWait();
+            }
+        }
+    }
 
     public void goToHomepage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/Homepage.fxml"));

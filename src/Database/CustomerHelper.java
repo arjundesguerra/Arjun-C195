@@ -93,4 +93,15 @@ public class CustomerHelper {
             throw new SQLException(customerName + " not found");
         }
     }
+
+    public static String getCustomerNameByID(int customerID) throws SQLException {
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT Customer_Name FROM customers WHERE Customer_ID = ?");
+        statement.setInt(1, customerID);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getString("Customer_Name");
+        } else {
+            throw new SQLException(customerID + " not found");
+        }
+    }
 }

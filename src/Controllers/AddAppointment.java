@@ -139,7 +139,7 @@ public class AddAppointment {
         }
 
         // checks if the new appointment overlaps with existing appointments with the customer
-        if (AppointmentHelper.isAppointmentOverlap(startDateTime, endDateTime, customerID)) {
+        if (AppointmentHelper.isAppointmentOverlap(startDateTime, endDateTime, customerID, appointmentID)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
