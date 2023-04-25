@@ -2,6 +2,7 @@ package Controllers;
 
 import Database.AppointmentHelper;
 import Models.Appointment;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,10 +13,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class AppointmentHomepage {
-    @FXML
-    private TableView appointmentTable;
+
+    @FXML private RadioButton allRadioButton;
+    @FXML private RadioButton monthRadioButton;
+    @FXML private RadioButton weekRadioButton;
+    @FXML private TableView appointmentTable;
     @FXML private TableColumn appointmentIDColumn;
     @FXML private TableColumn appointmentTitleColumn;
     @FXML private TableColumn appointmentDescriptionColumn;
@@ -27,21 +32,35 @@ public class AppointmentHomepage {
     @FXML private TableColumn appointmentUserID;
     @FXML private TableColumn appointmentContactID;
     @FXML private Button addAppointmentButton;
+    private ToggleGroup appointmentToggleGroup;
 
     public void initialize() throws SQLException {
-        appointmentTable.setItems(AppointmentHelper.fetchAppointments());
-        appointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
-        appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
-        appointmentDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
-        appointmentLocationColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
-        appointmentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
-        appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
-        appointmentEndColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
-        appointmentCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        appointmentUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
-        appointmentContactID.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+        // default
+        setAppointmentTableAll();
 
+        appointmentToggleGroup = new ToggleGroup();
+        allRadioButton.setToggleGroup(appointmentToggleGroup);
+        monthRadioButton.setToggleGroup(appointmentToggleGroup);
+        weekRadioButton.setToggleGroup(appointmentToggleGroup);
+
+        allRadioButton.setOnAction(event -> {
+            try {
+                setAppointmentTableAll();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+        monthRadioButton.setOnAction(event -> {
+            try {
+                setAppointmentTableMonth();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+        weekRadioButton.setOnAction(event -> {
+        });
     }
+
 
     public void goToAddAppointment() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/AddAppointment.fxml"));
@@ -98,6 +117,39 @@ public class AppointmentHomepage {
             }
         }
     }
+
+    public void setAppointmentTableAll() throws SQLException {
+        appointmentTable.setItems(AppointmentHelper.fetchAppointments());
+
+        appointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+        appointmentDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+        appointmentLocationColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
+        appointmentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
+        appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+        appointmentEndColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+        appointmentCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        appointmentUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        appointmentContactID.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+    }
+    public void setAppointmentTableMonth() throws SQLException {
+        LocalDate currentDate = LocalDate.now();
+        int currentMonth = currentDate.getMonthValue();
+        appointmentTable.setItems(AppointmentHelper.fetchAppointmentsByMonth(currentMonth));
+
+        appointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+        appointmentDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+        appointmentLocationColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
+        appointmentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
+        appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+        appointmentEndColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+        appointmentCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        appointmentUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        appointmentContactID.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+    }
+
+
 
     public void goToHomepage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/Homepage.fxml"));

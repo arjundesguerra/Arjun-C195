@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class AppointmentHelper {
 
@@ -38,15 +40,38 @@ public class AppointmentHelper {
         return appointmentList;
     }
 
-    public static int maxID() throws SQLException {
-        int appointmentID = 0;
-        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT MAX(Appointment_ID) FROM appointments");
+    public static ObservableList<Appointment> fetchAppointmentsByMonth(int month) throws SQLException {
+        ObservableList<Appointment> monthAppointmentList = FXCollections.observableArrayList();
+
+        LocalDate currentDate = LocalDate.now();
+        LocalDate startDate = LocalDate.of(currentDate.getYear(), month, 1);
+        LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
+
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT * FROM appointments WHERE Start >= ? AND End <= ?");
+        statement.setTimestamp(1, Timestamp.valueOf(startDate.atStartOfDay()));
+        statement.setTimestamp(2, Timestamp.valueOf(endDate.atTime(LocalTime.MAX)));
+
         ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            appointmentID = resultSet.getInt(1) + 1;
+
+        while (resultSet.next()) {
+            int appointmentID = resultSet.getInt("Appointment_ID");
+            String appointmentTitle = resultSet.getString("Title");
+            String appointmentDescription = resultSet.getString("Description");
+            String appointmentLocation = resultSet.getString("Location");
+            String appointmentType = resultSet.getString("Type");
+            LocalDateTime startDateTime = resultSet.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime endDateTime = resultSet.getTimestamp("End").toLocalDateTime();
+            int customerID = resultSet.getInt("Customer_ID");
+            int userID = resultSet.getInt("User_ID");
+            int contactID = resultSet.getInt("Contact_ID");
+
+            Appointment appointment = new Appointment(appointmentID, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, startDateTime, endDateTime, customerID, userID, contactID);
+            monthAppointmentList.add(appointment);
         }
-        return appointmentID;
+
+        return monthAppointmentList;
     }
+
 
     public static void createAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType,
                                          LocalDateTime startDateTime, LocalDateTime endDateTime, int customerID, int userID, int contactID) throws SQLException {
@@ -118,6 +143,17 @@ public class AppointmentHelper {
 
         return false;
     }
+
+    public static int maxID() throws SQLException {
+        int appointmentID = 0;
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT MAX(Appointment_ID) FROM appointments");
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            appointmentID = resultSet.getInt(1) + 1;
+        }
+        return appointmentID;
+    }
+
 
 
 
