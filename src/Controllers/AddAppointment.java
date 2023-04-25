@@ -27,17 +27,28 @@ import java.util.List;
 public class AddAppointment {
 
 
-    @FXML private ComboBox customerComboBox;
-    @FXML private ComboBox userComboBox;
-    @FXML private ComboBox contactComboBox;
-    @FXML private TextField titleTextField;
-    @FXML private TextField descriptionTextField;
-    @FXML private TextField locationTextField;
-    @FXML private TextField typeTextField;
-    @FXML private DatePicker datePicker;
-    @FXML private ComboBox startTimeComboBox;
-    @FXML private ComboBox endTimeComboBox;
-    @FXML private Button submitButton;
+    @FXML
+    private ComboBox customerComboBox;
+    @FXML
+    private ComboBox userComboBox;
+    @FXML
+    private ComboBox contactComboBox;
+    @FXML
+    private TextField titleTextField;
+    @FXML
+    private TextField descriptionTextField;
+    @FXML
+    private TextField locationTextField;
+    @FXML
+    private TextField typeTextField;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private ComboBox startTimeComboBox;
+    @FXML
+    private ComboBox endTimeComboBox;
+    @FXML
+    private Button submitButton;
 
     public void initialize() throws SQLException {
         submitButton.setFocusTraversable(true);
@@ -138,6 +149,17 @@ public class AddAppointment {
             return;
         }
 
+        // check if the selected date is before the current date
+        LocalDate currentDate = LocalDate.now();
+        if (date.isBefore(currentDate)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Appointments cannot be scheduled for dates before the current date.");
+            alert.showAndWait();
+            return;
+        }
+
         // checks if the new appointment overlaps with existing appointments with the customer
         if (AppointmentHelper.isAppointmentOverlap(startDateTime, endDateTime, customerID, appointmentID)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -177,7 +199,6 @@ public class AddAppointment {
         Stage currentStage = (Stage) titleTextField.getScene().getWindow();
         currentStage.close();
     }
-
 
 
 }
