@@ -72,6 +72,39 @@ public class AppointmentHelper {
         return monthAppointmentList;
     }
 
+    public static ObservableList<Appointment> fetchAppointmentsByWeek() throws SQLException {
+        ObservableList<Appointment> weekAppointmentList = FXCollections.observableArrayList();
+
+        LocalDate currentDate = LocalDate.now();
+        LocalDate endDate = currentDate.plusDays(7);
+        LocalDate startDate = currentDate;
+
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT * FROM appointments WHERE Start >= ? AND Start <= ?");
+        statement.setTimestamp(1, Timestamp.valueOf(startDate.atStartOfDay()));
+        statement.setTimestamp(2, Timestamp.valueOf(endDate.plusDays(1).atStartOfDay()));
+
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int appointmentID = resultSet.getInt("Appointment_ID");
+            String appointmentTitle = resultSet.getString("Title");
+            String appointmentDescription = resultSet.getString("Description");
+            String appointmentLocation = resultSet.getString("Location");
+            String appointmentType = resultSet.getString("Type");
+            LocalDateTime startDateTime = resultSet.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime endDateTime = resultSet.getTimestamp("End").toLocalDateTime();
+            int customerID = resultSet.getInt("Customer_ID");
+            int userID = resultSet.getInt("User_ID");
+            int contactID = resultSet.getInt("Contact_ID");
+
+            Appointment appointment = new Appointment(appointmentID, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, startDateTime, endDateTime, customerID, userID, contactID);
+            weekAppointmentList.add(appointment);
+        }
+
+        return weekAppointmentList;
+    }
+
+
 
 
 

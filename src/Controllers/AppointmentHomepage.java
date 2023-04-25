@@ -58,6 +58,11 @@ public class AppointmentHomepage {
             }
         });
         weekRadioButton.setOnAction(event -> {
+            try {
+                setAppointmentTableWeek();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         });
     }
 
@@ -134,6 +139,21 @@ public class AppointmentHomepage {
     }
     public void setAppointmentTableMonth() throws SQLException {
         appointmentTable.setItems(AppointmentHelper.fetchAppointmentsByMonth());
+
+        appointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+        appointmentDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+        appointmentLocationColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
+        appointmentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
+        appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+        appointmentEndColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+        appointmentCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        appointmentUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        appointmentContactID.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+    }
+
+    public void setAppointmentTableWeek() throws SQLException {
+        appointmentTable.setItems(AppointmentHelper.fetchAppointmentsByWeek());
 
         appointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
