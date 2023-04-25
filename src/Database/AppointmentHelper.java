@@ -107,6 +107,18 @@ public class AppointmentHelper {
         return false;
     }
 
+    public static boolean customerHasAppointments(int customerID) throws SQLException {
+        ObservableList<Appointment> appointments = fetchAppointments();
+
+        for (Appointment appointment : appointments) {
+            if (appointment.getCustomerID() == customerID) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
 
 }

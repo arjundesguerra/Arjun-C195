@@ -1,4 +1,5 @@
 package Controllers;
+import Database.AppointmentHelper;
 import Database.CustomerHelper;
 import Models.Customer;
 import javafx.fxml.FXML;
@@ -80,16 +81,24 @@ public class CustomerHomepage {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please select a customer to delete.", ButtonType.OK);
             alert.showAndWait();
         } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?", ButtonType.YES, ButtonType.NO);
-            alert.showAndWait();
-            if (alert.getResult() == ButtonType.YES) {
-                CustomerHelper.deleteCustomer(selectedCustomer.getCustomerID());
-                customerTable.setItems(CustomerHelper.fetchCustomers());
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully.", ButtonType.OK);
-                successAlert.showAndWait();
+            // Check if there are any appointments associated with the customer
+            boolean hasAppointments = AppointmentHelper.customerHasAppointments(selectedCustomer.getCustomerID());
+            if (hasAppointments) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Customer cannot be deleted because there are appointments associated with this customer.", ButtonType.OK);
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?", ButtonType.YES, ButtonType.NO);
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.YES) {
+                    CustomerHelper.deleteCustomer(selectedCustomer.getCustomerID());
+                    customerTable.setItems(CustomerHelper.fetchCustomers());
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully.", ButtonType.OK);
+                    successAlert.showAndWait();
+                }
             }
         }
     }
+
 
     public void goToHomepage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/Homepage.fxml"));

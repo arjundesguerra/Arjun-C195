@@ -2,7 +2,6 @@ package Controllers;
 
 import Database.AppointmentHelper;
 import Models.Appointment;
-import Models.Customer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -90,9 +89,11 @@ public class AppointmentHomepage {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this appointment?", ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
-                AppointmentHelper.deleteAppointment(selectedAppointment.getAppointmentID());
+                int deletedAppointmentID = selectedAppointment.getAppointmentID();
+                String deletedAppointmentType = selectedAppointment.getAppointmentType();
+                AppointmentHelper.deleteAppointment(deletedAppointmentID);
                 appointmentTable.setItems(AppointmentHelper.fetchAppointments());
-                Alert successAlert = new Alert(Alert.AlertType.INFORMATION, "Appointment deleted successfully.", ButtonType.OK);
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION, "Appointment ID: " + deletedAppointmentID + " with Appointment Type: " + deletedAppointmentType + "\nhas been deleted successfully.", ButtonType.OK);
                 successAlert.showAndWait();
             }
         }
