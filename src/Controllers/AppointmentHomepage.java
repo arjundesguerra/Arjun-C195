@@ -133,9 +133,7 @@ public class AppointmentHomepage {
         appointmentContactID.setCellValueFactory(new PropertyValueFactory<>("contactID"));
     }
     public void setAppointmentTableMonth() throws SQLException {
-        LocalDate currentDate = LocalDate.now();
-        int currentMonth = currentDate.getMonthValue();
-        appointmentTable.setItems(AppointmentHelper.fetchAppointmentsByMonth(currentMonth));
+        appointmentTable.setItems(AppointmentHelper.fetchAppointmentsByMonth());
 
         appointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));

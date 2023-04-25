@@ -40,16 +40,16 @@ public class AppointmentHelper {
         return appointmentList;
     }
 
-    public static ObservableList<Appointment> fetchAppointmentsByMonth(int month) throws SQLException {
+    public static ObservableList<Appointment> fetchAppointmentsByMonth() throws SQLException {
         ObservableList<Appointment> monthAppointmentList = FXCollections.observableArrayList();
 
         LocalDate currentDate = LocalDate.now();
-        LocalDate startDate = LocalDate.of(currentDate.getYear(), month, 1);
-        LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
+        LocalDate endDate = currentDate.plusMonths(1);
+        LocalDate startDate = currentDate;
 
-        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT * FROM appointments WHERE Start >= ? AND End <= ?");
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT * FROM appointments WHERE Start >= ? AND Start <= ?");
         statement.setTimestamp(1, Timestamp.valueOf(startDate.atStartOfDay()));
-        statement.setTimestamp(2, Timestamp.valueOf(endDate.atTime(LocalTime.MAX)));
+        statement.setTimestamp(2, Timestamp.valueOf(endDate.plusDays(1).atStartOfDay()));
 
         ResultSet resultSet = statement.executeQuery();
 
@@ -71,6 +71,8 @@ public class AppointmentHelper {
 
         return monthAppointmentList;
     }
+
+
 
 
     public static void createAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType,
