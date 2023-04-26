@@ -1,5 +1,9 @@
 package Controllers;
 
+import Database.AppointmentHelper;
+import Models.Appointment;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
 
@@ -18,6 +24,33 @@ public class Homepage {
 
     public void initialize() {
         checkLocation();
+    }
+
+    public static void appointmentNotification() throws SQLException {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime fifteenMinutesLater = now.plusMinutes(15);
+
+        ObservableList<Appointment> appointments = AppointmentHelper.fetchAppointmentsByTime(now, fifteenMinutesLater);
+
+        if (appointments.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Alert");
+            alert.setHeaderText(null);
+            alert.setContentText("There are no appointments scheduled within the next 15 minutes.");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Alert");
+            alert.setHeaderText("Upcoming appointment(s) in the next 15 minutes: \n");
+            String content = "";
+            for (Appointment appointment : appointments) {
+                content += "Appointment ID: " + appointment.getAppointmentID() + "\n";
+                content += "Date: " + appointment.getStartDateTime().toLocalDate().toString() + "\n";
+                content += "Time: " + appointment.getStartDateTime().toLocalTime().toString() + " - " + appointment.getEndDateTime().toLocalTime().toString() + "\n\n";
+            }
+            alert.setContentText(content);
+            alert.showAndWait();
+        }
     }
 
     public void checkLocation() {

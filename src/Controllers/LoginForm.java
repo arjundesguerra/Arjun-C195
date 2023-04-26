@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.ZoneId;
 
 
@@ -35,7 +36,7 @@ public class LoginForm {
         locationText.setText("Location: " + zone);
     }
 
-    public void signIn() throws IOException {
+    public void signIn() throws IOException, SQLException {
         String username = usernameField.getText();
         String password = passwordField.getText();
         if (username.equals("test") && password.equals("test")) {
@@ -45,6 +46,7 @@ public class LoginForm {
             newStage.setTitle("Homepage");
             newStage.setScene(scene);
             newStage.show();
+            Homepage.appointmentNotification();
             Stage currentStage = (Stage) locationText.getScene().getWindow();
             currentStage.close();
         } else {

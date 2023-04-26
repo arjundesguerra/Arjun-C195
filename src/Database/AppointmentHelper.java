@@ -10,7 +10,6 @@ import java.sql.Timestamp;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 
 public class AppointmentHelper {
@@ -105,6 +104,35 @@ public class AppointmentHelper {
 
         return weekAppointmentList;
     }
+
+    public static ObservableList<Appointment> fetchAppointmentsByTime(LocalDateTime start, LocalDateTime end) throws SQLException {
+        ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT * FROM appointments WHERE Start >= ? AND Start < ?");
+        statement.setTimestamp(1, Timestamp.valueOf(start));
+        statement.setTimestamp(2, Timestamp.valueOf(end));
+
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int appointmentID = resultSet.getInt("Appointment_ID");
+            String appointmentTitle = resultSet.getString("Title");
+            String appointmentDescription = resultSet.getString("Description");
+            String appointmentLocation = resultSet.getString("Location");
+            String appointmentType = resultSet.getString("Type");
+            LocalDateTime startDateTime = resultSet.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime endDateTime = resultSet.getTimestamp("End").toLocalDateTime();
+            int customerID = resultSet.getInt("Customer_ID");
+            int userID = resultSet.getInt("User_ID");
+            int contactID = resultSet.getInt("Contact_ID");
+
+            Appointment appointment = new Appointment(appointmentID, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, startDateTime, endDateTime, customerID, userID, contactID);
+            appointmentList.add(appointment);
+        }
+
+        return appointmentList;
+    }
+
 
 
 
