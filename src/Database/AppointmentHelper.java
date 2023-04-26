@@ -7,9 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 
 public class AppointmentHelper {
 
@@ -44,8 +46,8 @@ public class AppointmentHelper {
         ObservableList<Appointment> monthAppointmentList = FXCollections.observableArrayList();
 
         LocalDate currentDate = LocalDate.now();
-        LocalDate endDate = currentDate.plusMonths(1);
-        LocalDate startDate = currentDate;
+        LocalDate endDate = LocalDate.of(currentDate.getYear(), currentDate.getMonth(), currentDate.lengthOfMonth());
+        LocalDate startDate = currentDate.withDayOfMonth(1);
 
         PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT * FROM appointments WHERE Start >= ? AND Start <= ?");
         statement.setTimestamp(1, Timestamp.valueOf(startDate.atStartOfDay()));
@@ -76,7 +78,7 @@ public class AppointmentHelper {
         ObservableList<Appointment> weekAppointmentList = FXCollections.observableArrayList();
 
         LocalDate currentDate = LocalDate.now();
-        LocalDate endDate = currentDate.plusDays(7);
+        LocalDate endDate = currentDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).minusDays(1);
         LocalDate startDate = currentDate;
 
         PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT * FROM appointments WHERE Start >= ? AND Start <= ?");
@@ -103,7 +105,6 @@ public class AppointmentHelper {
 
         return weekAppointmentList;
     }
-
 
 
 
