@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="774.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ReportHomepage">
+<AnchorPane prefHeight="752.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ReportHomepage">
    <children>
       <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToHomepage">
          <graphic>
@@ -36,15 +36,10 @@
       </TableView>
       <Line endX="486.0" layoutX="113.0" layoutY="245.0" startX="-114.5" />
       <Text layoutX="250.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Schedule" />
-      <TableView fx:id="contactTableView" layoutX="21.0" layoutY="295.0" prefHeight="200.0" prefWidth="560.0">
+      <TableView fx:id="contactTableView" layoutX="65.0" layoutY="295.0" prefHeight="200.0" prefWidth="484.0">
         <columns>
-          <TableColumn prefWidth="78.0" text="Appointment&#10;          ID" />
-          <TableColumn prefWidth="70.0" text="Title" />
-            <TableColumn prefWidth="64.0" text="Type" />
-            <TableColumn prefWidth="91.0" text="Description" />
-            <TableColumn prefWidth="97.0" text="      Start&#10;Timestamp" />
-            <TableColumn prefWidth="96.0" text="       End&#10;Timestamp" />
-            <TableColumn prefWidth="63.0" text="Customer &#10;        ID" />
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
       <Line endX="473.5" layoutX="126.0" layoutY="520.0" startX="-124.0" />

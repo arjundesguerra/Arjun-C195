@@ -134,9 +134,6 @@ public class AppointmentHelper {
     }
 
 
-
-
-
     public static void createAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType,
                                          LocalDateTime startDateTime, LocalDateTime endDateTime, int customerID, int userID, int contactID) throws SQLException {
 

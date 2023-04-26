@@ -31,6 +31,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="goToReportsButton" layoutX="238.0" layoutY="259.0" mnemonicParsing="false" prefWidth="120.0" text="Reports" />
+      <Button fx:id="goToReportsButton" layoutX="238.0" layoutY="259.0" mnemonicParsing="false" onAction="#goToReports" prefWidth="120.0" text="Reports" />
    </children>
 </AnchorPane>

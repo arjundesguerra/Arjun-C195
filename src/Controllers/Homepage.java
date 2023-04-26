@@ -80,6 +80,17 @@ public class Homepage {
         currentStage.close();
     }
 
+    public void goToReports() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/ReportHomepage.fxml"));
+        Scene scene = new Scene(root);
+        Stage newStage = new Stage();
+        newStage.setTitle("Reports Homepage");
+        newStage.setScene(scene);
+        newStage.show();
+        Stage currentStage = (Stage) goToCustomersButton.getScene().getWindow();
+        currentStage.close();
+    }
+
     public void goToLogin() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Logout");
