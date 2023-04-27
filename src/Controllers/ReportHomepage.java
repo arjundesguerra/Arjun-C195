@@ -2,8 +2,12 @@ package Controllers;
 
 import Database.AppointmentHelper;
 import Database.ContactHelper;
+import Database.CustomerHelper;
+import Database.DivisionHelper;
 import Models.Appointment;
 import Models.Contact;
+import Models.Customer;
+import Models.Division;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -46,11 +50,15 @@ public class ReportHomepage {
     @FXML private TableColumn contactCustomerID;
     @FXML private ComboBox contactComboBox;
     @FXML private TableView divisionTableView;
+    @FXML private TableColumn divisionTitleColumn;
+    @FXML private TableColumn divisionTotalColumn;
+
 
     public void initialize() throws SQLException {
         setTypeTable();
         setMonthTable();
         setContactComboBox();
+        setDivisionTable();
 
         contactComboBox.setOnAction(e -> {
             try {
@@ -134,9 +142,32 @@ public class ReportHomepage {
         }
     }
 
-    public void setDivisionTable() {
+    public void setDivisionTable() throws SQLException {
+        ObservableList<Customer> customers = CustomerHelper.fetchCustomers();
+        HashMap<String, Integer> divisionMap = new HashMap<>();
 
+        for (Customer customer : customers) {
+            String division = customer.getCustomerDivision();
+            if (divisionMap.containsKey(division)) {
+                divisionMap.put(division, divisionMap.get(division) + 1);
+            } else {
+                divisionMap.put(division, 1);
+            }
+        }
+
+        ObservableList<HashMap.Entry<String, Integer>> divisionDataList = FXCollections.observableArrayList(divisionMap.entrySet());
+
+        divisionTitleColumn.setCellValueFactory((Callback<TableColumn.CellDataFeatures<HashMap.Entry<String, Integer>, String>, ObservableValue<String>>)
+                cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
+
+        divisionTotalColumn.setCellValueFactory((Callback<TableColumn.CellDataFeatures<HashMap.Entry<String, Integer>, Integer>, ObservableValue<Integer>>)
+                cellData -> new SimpleIntegerProperty(cellData.getValue().getValue()).asObject());
+
+        divisionTableView.setItems(divisionDataList);
     }
+
+
+
 
     public void goToHomepage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/Homepage.fxml"));

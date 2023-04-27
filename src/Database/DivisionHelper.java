@@ -31,5 +31,26 @@ public class DivisionHelper {
 
         return divisionList;
     }
+
+    public static ObservableList<Division> fetchAllDivisions() throws SQLException {
+        ObservableList<Division> divisionList = FXCollections.observableArrayList();
+
+        PreparedStatement statement = JDBC.getConnection().prepareStatement(
+                "SELECT Division_ID, Division FROM first_level_divisions"
+        );
+
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            int divisionID = resultSet.getInt("Division_ID");
+            String divisionName = resultSet.getString("Division");
+
+            Division d = new Division(divisionID, divisionName);
+            divisionList.add(d);
+        }
+
+        return divisionList;
+    }
+
 }
 
