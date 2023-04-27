@@ -1,5 +1,4 @@
 package Controllers;
-
 import Database.AppointmentHelper;
 import Database.ContactHelper;
 import Database.CustomerHelper;
@@ -16,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.*;
@@ -25,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddAppointment {
-
 
     @FXML
     private ComboBox customerComboBox;

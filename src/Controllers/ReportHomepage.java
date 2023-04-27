@@ -1,7 +1,9 @@
 package Controllers;
 
 import Database.AppointmentHelper;
+import Database.ContactHelper;
 import Models.Appointment;
+import Models.Contact;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -12,8 +14,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import java.io.IOException;
@@ -25,28 +29,36 @@ import java.util.Locale;
 
 public class ReportHomepage {
 
-    @FXML
-    private Button backButton;
-    @FXML
-    private TableView typeTableView;
-    @FXML
-    private TableColumn typeColumn;
-    @FXML
-    private TableColumn typeTotalColumn;
-    @FXML
-    private TableView monthTableView;
-    @FXML
-    private TableColumn monthColumn;
-    @FXML
-    private TableColumn monthTotalColumn;
-    @FXML
-    private TableView contactTableView;
-    @FXML
-    private TableView divisionTableView;
+    @FXML private Button backButton;
+    @FXML private TableView typeTableView;
+    @FXML private TableColumn typeColumn;
+    @FXML private TableColumn typeTotalColumn;
+    @FXML private TableView monthTableView;
+    @FXML private TableColumn monthColumn;
+    @FXML private TableColumn monthTotalColumn;
+    @FXML private TableView contactTableView;
+    @FXML private TableColumn contactAppointmentIDColumn;
+    @FXML private TableColumn contactTitleColumn;
+    @FXML private TableColumn contactTypeColumn;
+    @FXML private TableColumn contactDescriptionColumn;
+    @FXML private TableColumn contactStartColumn;
+    @FXML private TableColumn contactEndColumn;
+    @FXML private TableColumn contactCustomerID;
+    @FXML private ComboBox contactComboBox;
+    @FXML private TableView divisionTableView;
 
     public void initialize() throws SQLException {
         setTypeTable();
         setMonthTable();
+        setContactComboBox();
+
+        contactComboBox.setOnAction(e -> {
+            try {
+                setContactTable();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 
     public void setTypeTable() throws SQLException {
@@ -99,9 +111,27 @@ public class ReportHomepage {
         monthTableView.setItems(monthDataList);
     }
 
+    public void setContactTable() throws SQLException {
+        String selectedContact = (String) contactComboBox.getValue();
+        ObservableList<Appointment> appointments = AppointmentHelper.fetchAppointmentsByContact(selectedContact);
 
-    public void setContactTable() {
+        contactAppointmentIDColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        contactTitleColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
+        contactTypeColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
+        contactDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));
+        contactStartColumn.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+        contactEndColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+        contactCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
+        contactTableView.setItems(appointments);
+    }
+
+
+    public void setContactComboBox() throws SQLException {
+        ObservableList<Contact> contactsList = ContactHelper.fetchContacts();
+        for (Contact contact : contactsList) {
+            contactComboBox.getItems().add(contact.getContactName());
+        }
     }
 
     public void setDivisionTable() {
