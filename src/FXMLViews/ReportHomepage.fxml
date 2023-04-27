@@ -24,14 +24,14 @@
       <Text layoutX="350.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments By Month" />
       <TableView fx:id="typeTableView" layoutX="84.0" layoutY="63.0" prefHeight="157.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="100.0" text="Type" />
-          <TableColumn prefWidth="99.0" text="Total" />
+          <TableColumn fx:id="typeColumn" prefWidth="100.0" text="Type" />
+          <TableColumn fx:id="typeTotalColumn" prefWidth="99.0" text="Total" />
         </columns>
       </TableView>
       <TableView fx:id="monthTableView" layoutX="316.0" layoutY="63.0" prefHeight="157.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="99.0" text="Total" />
-          <TableColumn prefWidth="100.0" text="Month" />
+          <TableColumn fx:id="monthColumn" prefWidth="99.0" text="Month" />
+          <TableColumn fx:id="monthTotalColumn" prefWidth="100.0" text="Total" />
         </columns>
       </TableView>
       <Line endX="486.0" layoutX="113.0" layoutY="245.0" startX="-114.5" />
