@@ -13,8 +13,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -23,7 +25,8 @@ import java.util.ResourceBundle;
 
 public class LoginForm {
 
-    @FXML private Text userLoginText;
+    @FXML
+    private Text userLoginText;
     @FXML
     private TextField usernameField;
     @FXML
@@ -59,7 +62,21 @@ public class LoginForm {
     public void signIn() throws IOException, SQLException {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        if (UserHelper.validateUser(username, password)) {
+        String loginStatus;
+
+        boolean isValidUser = UserHelper.validateUser(username, password);
+        if (isValidUser) {
+            loginStatus = "Success";
+        } else {
+            loginStatus = "Failure";
+        }
+
+        String logMessage = String.format("[%s] Login attempt by user '%s': %s\n", LocalDateTime.now().format(formatter), username, loginStatus);
+        try (FileWriter writer = new FileWriter("login_activity.txt", true)) {
+            writer.write(logMessage);
+        }
+
+        if (isValidUser) {
             Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/Homepage.fxml"));
             Scene scene = new Scene(root);
             Stage newStage = new Stage();
