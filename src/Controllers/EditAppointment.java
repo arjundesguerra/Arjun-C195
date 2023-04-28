@@ -6,7 +6,6 @@ import Database.CustomerHelper;
 import Database.UserHelper;
 import Models.Contact;
 import Models.Customer;
-import Models.Division;
 import Models.User;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

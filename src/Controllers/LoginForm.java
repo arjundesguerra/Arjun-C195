@@ -11,20 +11,33 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.ZoneId;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 public class LoginForm {
 
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    @FXML private Text locationText;
-    @FXML private Button signInButton;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Text locationText;
+    @FXML
+    private Button signInButton;
+    private ResourceBundle bundle;
 
 
     public void initialize() {
+        if (Locale.getDefault().getLanguage().equals("fr")) {
+            bundle = ResourceBundle.getBundle("ResourceBundles/fr_login");
+            setFrench();
+        }
+
         signInButton.setFocusTraversable(true);
         Platform.runLater(() -> signInButton.requestFocus());
 
@@ -56,5 +69,10 @@ public class LoginForm {
             alert.setContentText("Incorrect username or password.");
             alert.showAndWait();
         }
+    }
+
+    public void setFrench() {
+        usernameField.setPromptText(bundle.getString("Username"));
+        passwordField.setPromptText(bundle.getString("Password"));
     }
 }
