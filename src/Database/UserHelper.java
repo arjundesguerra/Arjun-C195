@@ -28,6 +28,15 @@ public class UserHelper {
         return usersList;
     }
 
+    public static boolean validateUser(String username, String password) throws SQLException {
+        PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT User_ID FROM users WHERE User_Name = ? AND Password = ?");
+        statement.setString(1, username);
+        statement.setString(2, password);
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet.next();
+    }
+
+
     public static int getUserIDByName(String userName) throws SQLException {
         PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT User_ID FROM users WHERE User_Name = ?");
         statement.setString(1, userName);

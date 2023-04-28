@@ -1,5 +1,6 @@
 package Controllers;
 
+import Database.UserHelper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -31,7 +33,7 @@ public class LoginForm {
     @FXML
     private Button signInButton;
     private ResourceBundle bundle;
-
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public void initialize() {
         if (Locale.getDefault().getLanguage().equals("fr")) {
@@ -57,7 +59,7 @@ public class LoginForm {
     public void signIn() throws IOException, SQLException {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        if (username.equals("test") && password.equals("test")) {
+        if (UserHelper.validateUser(username, password)) {
             Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/Homepage.fxml"));
             Scene scene = new Scene(root);
             Stage newStage = new Stage();
