@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 
 public class LoginForm {
 
+    @FXML private Text userLoginText;
     @FXML
     private TextField usernameField;
     @FXML
@@ -46,7 +47,11 @@ public class LoginForm {
 
     public void checkLocation() {
         ZoneId zone = ZoneId.systemDefault();
-        locationText.setText("Location: " + zone);
+        if (Locale.getDefault().getLanguage().equals("fr")) {
+            locationText.setText(bundle.getString("Location") + ": " + zone);
+        } else {
+            locationText.setText("Location: " + zone);
+        }
     }
 
     public void signIn() throws IOException, SQLException {
@@ -64,15 +69,22 @@ public class LoginForm {
             currentStage.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Sign-In Failed");
+            if (Locale.getDefault().getLanguage().equals("fr")) {
+                alert.setTitle(bundle.getString("InvalidAlertTitle"));
+                alert.setContentText(bundle.getString("InvalidAlertDescription"));
+            } else {
+                alert.setTitle("Sign-In Failed");
+                alert.setContentText("Incorrect username or password.");
+            }
             alert.setHeaderText(null);
-            alert.setContentText("Incorrect username or password.");
             alert.showAndWait();
         }
     }
 
     public void setFrench() {
+        userLoginText.setText(bundle.getString("UserLogin"));
         usernameField.setPromptText(bundle.getString("Username"));
         passwordField.setPromptText(bundle.getString("Password"));
+        signInButton.setText(bundle.getString("SignIn"));
     }
 }

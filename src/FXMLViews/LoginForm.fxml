@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginForm">
    <children>
-      <Text layoutX="174.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login" textAlignment="CENTER" wrappingWidth="250.21630859375">
+      <Text fx:id="userLoginText" layoutX="50.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login" textAlignment="CENTER" wrappingWidth="498.21630859375">
          <font>
             <Font size="50.0" />
          </font>

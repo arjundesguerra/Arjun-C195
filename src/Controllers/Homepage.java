@@ -10,16 +10,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Locale;
 import java.util.Optional;
 
 public class Homepage {
 
-    @FXML private Text locationText;
-    @FXML private Button goToCustomersButton;
+    @FXML
+    private Text locationText;
+    @FXML
+    private Button goToCustomersButton;
 
     public void initialize() {
         checkLocation();
@@ -31,24 +35,46 @@ public class Homepage {
 
         ObservableList<Appointment> appointments = AppointmentHelper.fetchAppointmentsByTime(now, fifteenMinutesLater);
 
-        if (appointments.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Alert");
-            alert.setHeaderText(null);
-            alert.setContentText("There are no appointments scheduled within the next 15 minutes.");
-            alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Alert");
-            alert.setHeaderText("Upcoming appointment(s) in the next 15 minutes: \n");
-            String content = "";
-            for (Appointment appointment : appointments) {
-                content += "Appointment ID: " + appointment.getAppointmentID() + "\n";
-                content += "Date: " + appointment.getStartDateTime().toLocalDate().toString() + "\n";
-                content += "Time: " + appointment.getStartDateTime().toLocalTime().toString() + " - " + appointment.getEndDateTime().toLocalTime().toString() + "\n\n";
+        if (Locale.getDefault().getLanguage().equals("fr")) {
+            if (appointments.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Alerte");
+                alert.setHeaderText(null);
+                alert.setContentText("Aucun rendez-vous n'est prévu dans les 15 prochaines minutes.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Alerte");
+                alert.setHeaderText("Rendez-vous(s) à venir dans les 15 prochaines minutes: \n");
+                String content = "";
+                for (Appointment appointment : appointments) {
+                    content += "ID de Rendez-vous: " + appointment.getAppointmentID() + "\n";
+                    content += "Date: " + appointment.getStartDateTime().toLocalDate().toString() + "\n";
+                    content += "Heure: " + appointment.getStartDateTime().toLocalTime().toString() + " - " + appointment.getEndDateTime().toLocalTime().toString() + "\n\n";
+                }
+                alert.setContentText(content);
+                alert.showAndWait();
             }
-            alert.setContentText(content);
-            alert.showAndWait();
+        } else {
+            if (appointments.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Alert");
+                alert.setHeaderText(null);
+                alert.setContentText("There are no appointments scheduled within the next 15 minutes.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Alert");
+                alert.setHeaderText("Upcoming appointment(s) in the next 15 minutes: \n");
+                String content = "";
+                for (Appointment appointment : appointments) {
+                    content += "Appointment ID: " + appointment.getAppointmentID() + "\n";
+                    content += "Date: " + appointment.getStartDateTime().toLocalDate().toString() + "\n";
+                    content += "Time: " + appointment.getStartDateTime().toLocalTime().toString() + " - " + appointment.getEndDateTime().toLocalTime().toString() + "\n\n";
+                }
+                alert.setContentText(content);
+                alert.showAndWait();
+            }
         }
     }
 
@@ -108,7 +134,6 @@ public class Homepage {
             currentStage.close();
         }
     }
-
 
 
 }
