@@ -309,7 +309,7 @@ public class AppointmentHelper {
      *
      * @param customerID The ID of the customer to check for appointments.
      * @return true if the customer has any appointments, false otherwise.
-     * @throws SQLException if an error occurs while querying the database.
+     * @throws SQLException if there is an error retrieving data from the database
      */
     public static boolean customerHasAppointments(int customerID) throws SQLException {
         ObservableList<Appointment> appointments = fetchAppointments();
@@ -324,10 +324,9 @@ public class AppointmentHelper {
     }
 
     /**
-     * Retrieves the maximum appointment ID from the database and returns it incremented by 1.
-     *
-     * @return the next available appointment ID.
-     * @throws SQLException if an error occurs while querying the database.
+     * Retrieves the highest ID currently in use for appointments in the database.
+     * @return the highest ID currently in use for appointments in the database
+     * @throws SQLException if there is an error retrieving data from the database
      */
     public static int maxID() throws SQLException {
         int appointmentID = 0;
@@ -338,8 +337,5 @@ public class AppointmentHelper {
         }
         return appointmentID;
     }
-
-
-
 
 }

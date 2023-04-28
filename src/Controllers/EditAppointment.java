@@ -16,7 +16,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.*;
@@ -67,7 +66,7 @@ public class EditAppointment {
     }
 
     /**
-     * Populates the textfields and combo boxes with the data from the selected appointment.
+     * Sets the data for an appointment object and populates the appointment form fields with the given data.
      *
      * @param appointmentID The ID of the appointment.
      * @param appointmentTitle The title of the appointment.

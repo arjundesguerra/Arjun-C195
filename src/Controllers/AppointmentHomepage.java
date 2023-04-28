@@ -209,8 +209,6 @@ public class AppointmentHomepage {
         appointmentContactID.setCellValueFactory(new PropertyValueFactory<>("contactID"));
     }
 
-
-
     /**
      * Loads the Homepage view and closes the current stage.
      *
