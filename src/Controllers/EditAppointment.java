@@ -24,6 +24,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The EditAppointment class manages the functionality for editing an existing appointment in the database.
+ */
 public class EditAppointment {
 
     @FXML private TextField appointmentIDTextField;
@@ -49,6 +52,12 @@ public class EditAppointment {
     private int userID;
     private int contactID;
 
+    /**
+     * Initializes the form by setting focus on the submit button,
+     * setting up the combo boxes, and setting up the time combo boxes.
+     *
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void initialize() throws SQLException {
         submitButton.setFocusTraversable(true);
         Platform.runLater(() -> submitButton.requestFocus());
@@ -56,6 +65,22 @@ public class EditAppointment {
         setComboBoxes();
         setTimeComboBoxes();
     }
+
+    /**
+     * Populates the textfields and combo boxes with the data from the selected appointment.
+     *
+     * @param appointmentID The ID of the appointment.
+     * @param appointmentTitle The title of the appointment.
+     * @param appointmentDescription The description of the appointment.
+     * @param appointmentLocation The location of the appointment.
+     * @param appointmentType The type of the appointment.
+     * @param startDateTime The start date and time of the appointment.
+     * @param endDateTime The end date and time of the appointment.
+     * @param customerID The ID of the customer associated with the appointment.
+     * @param userID The ID of the user associated with the appointment.
+     * @param contactID The ID of the contact associated with the appointment.
+     * @throws SQLException if there is an error retrieving data from the database
+     */
 
     public void setAppointmentData(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType,
                                    LocalDateTime startDateTime, LocalDateTime endDateTime, int customerID, int userID, int contactID) throws SQLException {
@@ -91,6 +116,11 @@ public class EditAppointment {
 
     }
 
+    /**
+     * Fetches data from the database and populates the corresponding ComboBoxes
+     *
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void setComboBoxes() throws SQLException {
         ObservableList<Customer> customerList = CustomerHelper.fetchCustomers();
         for (Customer customer : customerList) {
@@ -106,6 +136,9 @@ public class EditAppointment {
         }
     }
 
+    /**
+     * Sets the start and end time combo boxes with time slots in 30-minute increments from 00:00 to 23:30.
+     */
     public void setTimeComboBoxes() {
         LocalTime startTime = LocalTime.of(0, 0);
         LocalTime endTime = LocalTime.of(23, 30);
@@ -127,6 +160,13 @@ public class EditAppointment {
         endTimeComboBox.setItems(timeObservableList);
     }
 
+    /**
+     * Validates and updates the database with the edited appointment.
+     * Returns to Appointment Homepage after successful submission.
+     *
+     * @throws IOException  if there is an error with input/output
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void submit() throws IOException, SQLException {
         // gets Strings for getIDbyName methods in helper classes
         String customerName = (String) customerComboBox.getValue();
@@ -211,6 +251,11 @@ public class EditAppointment {
 
     }
 
+    /**
+     * Loads the Appointment Homepage view and closes the current stage.
+     *
+     * @throws IOException If the FXML file for the Appointment Homepage view cannot be found.
+     */
     public void goToAppointmentHomepage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/AppointmentHomepage.fxml"));
         Scene scene = new Scene(root);

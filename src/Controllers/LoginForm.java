@@ -12,7 +12,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,9 +21,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-
+/**
+ * This class represents a login form that allows a user to sign in with a username and password.
+ */
 public class LoginForm {
-
     @FXML
     private Text userLoginText;
     @FXML
@@ -38,6 +38,11 @@ public class LoginForm {
     private ResourceBundle bundle;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+    /**
+     * Initializes the login form by setting focus to the sign in button and checking the current location.
+     * If the default locale is French, this method loads the French language resource bundle and sets
+     * the text to French.
+     */
     public void initialize() {
         if (Locale.getDefault().getLanguage().equals("fr")) {
             bundle = ResourceBundle.getBundle("ResourceBundles/fr_login");
@@ -50,6 +55,10 @@ public class LoginForm {
         checkLocation();
     }
 
+    /**
+     * Checks the current location and displays it in the locationText. If the default locale is
+     * French, the location is displayed in French.
+     */
     public void checkLocation() {
         ZoneId zone = ZoneId.systemDefault();
         if (Locale.getDefault().getLanguage().equals("fr")) {
@@ -59,6 +68,13 @@ public class LoginForm {
         }
     }
 
+    /**
+     * Attempts to sign in the user with the provided username and password. If the validation is successful,
+     * the homepage is opened and the login attempt is logged. If the validation fails, an error message is displayed.
+     *
+     * @throws IOException  if there is an error loading the homepage FXML file
+     * @throws SQLException if there is an error validating the user's credentials
+     */
     public void signIn() throws IOException, SQLException {
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -100,6 +116,9 @@ public class LoginForm {
         }
     }
 
+    /**
+     * Sets the language of elements to French.
+     */
     public void setFrench() {
         userLoginText.setText(bundle.getString("UserLogin"));
         usernameField.setPromptText(bundle.getString("Username"));

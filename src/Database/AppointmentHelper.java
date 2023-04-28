@@ -12,8 +12,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 
+/**
+ * This class provides helper methods to interact with the appointments table in the database
+ */
 public class AppointmentHelper {
 
+    /**
+     * Retrieves all appointments from the database.
+     *
+     * @return an observable list of appointments
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public static ObservableList<Appointment> fetchAppointments() throws SQLException {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
 
@@ -41,6 +50,12 @@ public class AppointmentHelper {
         return appointmentList;
     }
 
+    /**
+     * Retrieves all appointments for the current month from the database.
+     *
+     * @return an observable list of appointments for the current month
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public static ObservableList<Appointment> fetchAppointmentsByMonth() throws SQLException {
         ObservableList<Appointment> monthAppointmentList = FXCollections.observableArrayList();
 
@@ -73,6 +88,12 @@ public class AppointmentHelper {
         return monthAppointmentList;
     }
 
+    /**
+     * Retrieves all appointments for the current week from the database.
+     *
+     * @return an observable list of appointments for the current week
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public static ObservableList<Appointment> fetchAppointmentsByWeek() throws SQLException {
         ObservableList<Appointment> weekAppointmentList = FXCollections.observableArrayList();
 
@@ -105,6 +126,14 @@ public class AppointmentHelper {
         return weekAppointmentList;
     }
 
+    /**
+     * Retrieves all appointments between the specified start and end times from the database.
+     *
+     * @param start the start time of the appointments to retrieve
+     * @param end the end time of the appointments to retrieve
+     * @return an observable list of appointments between the specified start and end times
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public static ObservableList<Appointment> fetchAppointmentsByTime(LocalDateTime start, LocalDateTime end) throws SQLException {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
 
@@ -133,6 +162,13 @@ public class AppointmentHelper {
         return appointmentList;
     }
 
+    /**
+     * Retrieves all appointments associated with the specified contact name from the database.
+     *
+     * @param contactName the name of the contact to retrieve appointments for
+     * @return an observable list of appointments associated with the specified contact name
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public static ObservableList<Appointment> fetchAppointmentsByContact(String contactName) throws SQLException {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
 
@@ -163,7 +199,21 @@ public class AppointmentHelper {
         return appointmentList;
     }
 
-
+    /**
+     * Creates a new appointment in the database.
+     *
+     * @param appointmentID         the appointment ID
+     * @param appointmentTitle      the appointment title
+     * @param appointmentDescription the appointment description
+     * @param appointmentLocation   the appointment location
+     * @param appointmentType       the appointment type
+     * @param startDateTime         the start date and time of the appointment
+     * @param endDateTime           the end date and time of the appointment
+     * @param customerID            the customer ID associated with the appointment
+     * @param userID                the user ID associated with the appointment
+     * @param contactID             the contact ID associated with the appointment
+     * @throws SQLException if there is an error inserting data into the database
+     */
     public static void createAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType,
                                          LocalDateTime startDateTime, LocalDateTime endDateTime, int customerID, int userID, int contactID) throws SQLException {
 
@@ -183,6 +233,21 @@ public class AppointmentHelper {
 
     }
 
+    /**
+     * Edits an existing appointment in the database.
+     *
+     * @param appointmentID         the appointment ID
+     * @param appointmentTitle      the appointment title
+     * @param appointmentDescription the appointment description
+     * @param appointmentLocation   the appointment location
+     * @param appointmentType       the appointment type
+     * @param startDateTime         the start date and time of the appointment
+     * @param endDateTime           the end date and time of the appointment
+     * @param customerID            the customer ID associated with the appointment
+     * @param userID                the user ID associated with the appointment
+     * @param contactID             the contact ID associated with the appointment
+     * @throws SQLException if there is an error updating data in the database
+     */
     public static void editAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType,
                                          LocalDateTime startDateTime, LocalDateTime endDateTime, int customerID, int userID, int contactID) throws SQLException {
 
@@ -203,6 +268,12 @@ public class AppointmentHelper {
 
     }
 
+    /**
+     * Deletes an appointment from the database.
+     *
+     * @param appointmentID         the appointment ID to delete
+     * @throws SQLException        if there is an error executing the SQL statement
+     */
     public static void deleteAppointment(int appointmentID) throws SQLException {
         String sqlDC = "DELETE from appointments WHERE Appointment_ID = ?";
         try (PreparedStatement psDC = JDBC.getConnection().prepareStatement(sqlDC)) {
@@ -211,6 +282,16 @@ public class AppointmentHelper {
         }
     }
 
+    /**
+     * Determines whether an appointment overlaps with an existing appointment for the specified customer.
+     *
+     * @param startDateTime The start date and time of the appointment to be checked.
+     * @param endDateTime The end date and time of the appointment to be checked.
+     * @param customerID The ID of the customer whose existing appointments should be checked for overlap.
+     * @param appointmentID The ID of the appointment being edited (if any).
+     * @return true if the appointment overlaps with an existing appointment for the specified customer, false otherwise.
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public static boolean isAppointmentOverlap(LocalDateTime startDateTime, LocalDateTime endDateTime, int customerID, int appointmentID) throws SQLException {
         ObservableList<Appointment> appointments = fetchAppointments();
 
@@ -223,6 +304,13 @@ public class AppointmentHelper {
         return false;
     }
 
+    /**
+     * Determines whether a customer has any appointments.
+     *
+     * @param customerID The ID of the customer to check for appointments.
+     * @return true if the customer has any appointments, false otherwise.
+     * @throws SQLException if an error occurs while querying the database.
+     */
     public static boolean customerHasAppointments(int customerID) throws SQLException {
         ObservableList<Appointment> appointments = fetchAppointments();
 
@@ -235,6 +323,12 @@ public class AppointmentHelper {
         return false;
     }
 
+    /**
+     * Retrieves the maximum appointment ID from the database and returns it incremented by 1.
+     *
+     * @return the next available appointment ID.
+     * @throws SQLException if an error occurs while querying the database.
+     */
     public static int maxID() throws SQLException {
         int appointmentID = 0;
         PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT MAX(Appointment_ID) FROM appointments");

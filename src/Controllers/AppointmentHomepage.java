@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * The AppointmentHomepage class is responsible for displaying the list of appointments and their corresponding parts.
+ */
 public class AppointmentHomepage {
 
     @FXML private RadioButton allRadioButton;
@@ -31,6 +34,12 @@ public class AppointmentHomepage {
     @FXML private Button addAppointmentButton;
     private ToggleGroup appointmentToggleGroup;
 
+    /**
+     * Initializes the homepage by displaying the data retrieved from the database. Initializes the toggle group and
+     * listens for a click on a radio button and displays appointments according to the clicked radio button.
+     *
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void initialize() throws SQLException {
         // default
         setAppointmentTableAll();
@@ -64,6 +73,11 @@ public class AppointmentHomepage {
     }
 
 
+    /**
+     * Loads the Add Appointment view and closes the current stage.
+     *
+     * @throws IOException If the FXML file for the Add Appointment view cannot be found.
+     */
     public void goToAddAppointment() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/AddAppointment.fxml"));
         Scene scene = new Scene(root);
@@ -75,6 +89,16 @@ public class AppointmentHomepage {
         currentStage.close();
     }
 
+    /**
+     * Loads the Edit Appointment view and closes the current stage.
+     *
+     * Retrieves the selected appointment from the table view and passes the appointment's data to the
+     * Edit Appointment view. If no appointment is selected, an error message is displayed.
+     *
+     * @throws IOException If the FXML file for the Edit Appointment view cannot be found.
+     *
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void goToEditAppointment() throws IOException, SQLException {
         Appointment selectedAppointment = (Appointment) appointmentTable.getSelectionModel().getSelectedItem();
 
@@ -101,6 +125,11 @@ public class AppointmentHomepage {
 
     }
 
+    /**
+     * Deletes the selected appointment from the appointment table and the database.
+     *
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void deleteAppointment() throws SQLException {
         Appointment selectedAppointment = (Appointment) appointmentTable.getSelectionModel().getSelectedItem();
         if (selectedAppointment == null) {
@@ -120,6 +149,11 @@ public class AppointmentHomepage {
         }
     }
 
+    /**
+     * Sets the appointment table to display all appointments.
+     *
+     * @throws SQLException if there is an error retrieving data from the database.
+     */
     public void setAppointmentTableAll() throws SQLException {
         appointmentTable.setItems(AppointmentHelper.fetchAppointments());
 
@@ -134,6 +168,12 @@ public class AppointmentHomepage {
         appointmentUserID.setCellValueFactory(new PropertyValueFactory<>("userID"));
         appointmentContactID.setCellValueFactory(new PropertyValueFactory<>("contactID"));
     }
+
+    /**
+     * Sets the appointment table to display appointments by month.
+     *
+     * @throws SQLException if there is an error retrieving data from the database.
+     */
     public void setAppointmentTableMonth() throws SQLException {
         appointmentTable.setItems(AppointmentHelper.fetchAppointmentsByMonth());
 
@@ -149,6 +189,11 @@ public class AppointmentHomepage {
         appointmentContactID.setCellValueFactory(new PropertyValueFactory<>("contactID"));
     }
 
+    /**
+     * Sets the appointment table to display appointments by week.
+     *
+     * @throws SQLException if there is an error retrieving data from the database.
+     */
     public void setAppointmentTableWeek() throws SQLException {
         appointmentTable.setItems(AppointmentHelper.fetchAppointmentsByWeek());
 
@@ -166,6 +211,11 @@ public class AppointmentHomepage {
 
 
 
+    /**
+     * Loads the Homepage view and closes the current stage.
+     *
+     * @throws IOException If the FXML file for the Homepage view cannot be found.
+     */
     public void goToHomepage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/Homepage.fxml"));
         Scene scene = new Scene(root);

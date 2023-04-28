@@ -13,13 +13,14 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * The EditCustomer class manages the functionality for editing an existing customer in the database.
+ */
 public class EditCustomer {
-
     @FXML
     private TextField idField;
     @FXML
@@ -43,8 +44,15 @@ public class EditCustomer {
     private String customerCountry;
     private String customerDivision;
 
-
-    public void initialize() throws SQLException {
+    /**
+     * Initializes the form by setting focus on the submit button.
+     *
+     * Creates event listeners for the country combo box to detect changes in selection and user interaction. Updates the division combo box with the
+     * corresponding divisions when the selected country changes, and resets the division combo box when the user selects the same country again.
+     *
+     * Lambda expression to define the event handler for the country combo box.
+     */
+    public void initialize() {
         submitButton.setFocusTraversable(true);
         Platform.runLater(() -> submitButton.requestFocus());
 
@@ -52,7 +60,6 @@ public class EditCustomer {
 
         countryComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             try {
-
                 if (countryChangedByUser.get()) {
                     divisionComboBox.setValue(null);
                 } else {
@@ -78,6 +85,17 @@ public class EditCustomer {
 
     }
 
+    /**
+     * Sets the data for a customer object and populates the customer form fields with the given data.
+     *
+     * @param customerID       the ID of the customer
+     * @param customerName     the name of the customer
+     * @param customerNumber   the phone number of the customer
+     * @param customerAddress  the address of the customer
+     * @param customerPostalCode the postal code of the customer
+     * @param customerCountry  the country of the customer
+     * @param customerDivision the division of the customer
+     */
     public void setCustomerData(int customerID, String customerName, String customerNumber, String customerAddress, String customerPostalCode,
                                 String customerCountry, String customerDivision) {
 
@@ -117,6 +135,12 @@ public class EditCustomer {
 
     }
 
+    /**
+     * Fetches the divisions for the country selected in the country combo box and populates the division combo box with
+     * the fetched divisions.
+     *
+     * @throws SQLException if there is an error while fetching the divisions from the database.
+     */
     public void divisionSelector() throws SQLException {
         int countryID;
         if (countryComboBox.getValue().equals("United States")) {
@@ -132,6 +156,13 @@ public class EditCustomer {
 
     }
 
+    /**
+     * Validates and updates the database with the edited customer.
+     * Returns to Customer Homepage after successful submission.
+     *
+     * @throws IOException  if there is an error with input/output
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void submit() throws IOException, SQLException {
         int customerID = Integer.parseInt(idField.getText());
         String customerName = nameTextField.getText();
@@ -150,6 +181,11 @@ public class EditCustomer {
         }
     }
 
+    /**
+     * Loads the Customer Homepage view and closes the current stage.
+     *
+     * @throws IOException If the FXML file for the Customer Homepage view cannot be found.
+     */
     public void goToCustomerHomepage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/CustomerHomepage.fxml"));
         Scene scene = new Scene(root);

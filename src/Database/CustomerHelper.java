@@ -8,8 +8,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
+/**
+ * This class provides helper methods to interact with the customer table in the database
+ */
 public class CustomerHelper {
 
+    /**
+     * Fetches all customer data from the database, including division and country data.
+     * @return an ObservableList of Customer objects containing all customer data
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public static ObservableList<Customer> fetchCustomers() throws SQLException {
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
@@ -34,6 +42,16 @@ public class CustomerHelper {
         return customerList;
     }
 
+    /**
+     * Creates a new customer in the database.
+     * @param customerID the ID for the new customer
+     * @param customerName the name of the new customer
+     * @param customerAddress the address of the new customer
+     * @param customerPostalCode the postal code of the new customer
+     * @param customerPhoneNumber the phone number of the new customer
+     * @param customerDivisionID the ID of the division to which the new customer belongs
+     * @throws SQLException if there is an error inserting data into the database
+     */
     public static void createCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode,
                                       String customerPhoneNumber, int customerDivisionID) throws SQLException {
 
@@ -49,6 +67,17 @@ public class CustomerHelper {
 
     }
 
+
+    /**
+     * Updates an existing customer in the database.
+     * @param customerID the ID of the customer to update
+     * @param customerName the updated name of the customer
+     * @param customerAddress the updated address of the customer
+     * @param customerPostalCode the updated postal code of the customer
+     * @param customerPhoneNumber the updated phone number of the customer
+     * @param customerDivisionID the updated ID of the division to which the customer belongs
+     * @throws SQLException if there is an error updating data in the database
+     */
     public static void editCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode,
                                     String customerPhoneNumber, int customerDivisionID) throws SQLException {
 
@@ -63,7 +92,11 @@ public class CustomerHelper {
 
     }
 
-
+    /**
+     * Deletes a customer from the database.
+     * @param customerID the ID of the customer to delete
+     * @throws SQLException if there is an error deleting data from the database
+     */
     public static void deleteCustomer(int customerID) throws SQLException {
         String sqlDC = "DELETE from customers WHERE Customer_ID = ?";
         try (PreparedStatement psDC = JDBC.getConnection().prepareStatement(sqlDC)) {
@@ -72,7 +105,11 @@ public class CustomerHelper {
         }
     }
 
-
+    /**
+     * Retrieves the highest ID currently in use for customers in the database.
+     * @return the highest ID currently in use for customers in the database
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public static int maxID() throws SQLException {
         int customerID = 0;
         PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT MAX(Customer_ID) FROM customers");
@@ -83,6 +120,12 @@ public class CustomerHelper {
         return customerID;
     }
 
+    /**
+     * Retrieves the ID of a customer with a given name from the database.
+     * @param customerName the name of the customer
+     * @return the ID of the customer with the given name
+     * @throws SQLException if there is an error retrieving data from the database.
+     */
     public static int getCustomerIDByName(String customerName) throws SQLException {
         PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT Customer_ID FROM customers WHERE Customer_Name = ?");
         statement.setString(1, customerName);
@@ -94,6 +137,12 @@ public class CustomerHelper {
         }
     }
 
+    /**
+     * Retrieves the name of a customer with a given ID from the database.
+     * @param customerID the ID of the customer
+     * @return the name of the customer with the given ID
+     * @throws SQLException if there is an error retrieving data from the database.
+     */
     public static String getCustomerNameByID(int customerID) throws SQLException {
         PreparedStatement statement = JDBC.getConnection().prepareStatement("SELECT Customer_Name FROM customers WHERE Customer_ID = ?");
         statement.setInt(1, customerID);

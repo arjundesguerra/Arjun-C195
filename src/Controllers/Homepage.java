@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -18,17 +17,28 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Optional;
 
+/**
+ * The Homepage class represents the main screen of the application, which allows users to navigate to other pages,
+ * view their current location, and receive appointment notifications.
+ */
 public class Homepage {
-
     @FXML
     private Text locationText;
     @FXML
     private Button goToCustomersButton;
 
+    /**
+     * Initializes the Homepage by checking the user's current location.
+     */
     public void initialize() {
         checkLocation();
     }
 
+    /**
+     * Checks for any upcoming appointments within the next 15 minutes, and displays a notification showing
+     * appointment information if any are found.
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public static void appointmentNotification() throws SQLException {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime fifteenMinutesLater = now.plusMinutes(15);
@@ -78,11 +88,19 @@ public class Homepage {
         }
     }
 
+    /**
+     * Checks the user's current location and displays it on the Homepage.
+     */
     public void checkLocation() {
         ZoneId zone = ZoneId.systemDefault();
         locationText.setText("Location: " + zone);
     }
 
+    /**
+     * Loads the Customer Homepage view and closes the current stage.
+     *
+     * @throws IOException If the FXML file for the Customer Homepage view cannot be found.
+     */
     public void goToCustomers() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/CustomerHomepage.fxml"));
         Scene scene = new Scene(root);
@@ -94,6 +112,11 @@ public class Homepage {
         currentStage.close();
     }
 
+    /**
+     * Loads the Appointment Homepage view and closes the current stage.
+     *
+     * @throws IOException If the FXML file for the Appointment Homepage view cannot be found.
+     */
     public void goToAppointments() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/AppointmentHomepage.fxml"));
         Scene scene = new Scene(root);
@@ -105,6 +128,11 @@ public class Homepage {
         currentStage.close();
     }
 
+    /**
+     * Loads the Report Homepage view and closes the current stage.
+     *
+     * @throws IOException If the FXML file for the Report Homepage view cannot be found.
+     */
     public void goToReports() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/ReportHomepage.fxml"));
         Scene scene = new Scene(root);
@@ -116,6 +144,11 @@ public class Homepage {
         currentStage.close();
     }
 
+    /**
+     * Loads the LoginForm view and closes the current stage.
+     *
+     * @throws IOException If the FXML file for the Appointment Homepage view cannot be found.
+     */
     public void goToLogin() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Logout");

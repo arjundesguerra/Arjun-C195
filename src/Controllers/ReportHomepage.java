@@ -29,6 +29,9 @@ import java.time.format.TextStyle;
 import java.util.HashMap;
 import java.util.Locale;
 
+/**
+ * This class represents the controller for fetching and displaying of report data.
+ */
 public class ReportHomepage {
 
     @FXML private Button backButton;
@@ -52,6 +55,11 @@ public class ReportHomepage {
     @FXML private TableColumn divisionTotalColumn;
 
 
+    /**
+     * Initializes the controller, sets up the tables with appointment, contact, and customer data.
+     *
+     * @throws SQLException if an SQL exception occurs
+     */
     public void initialize() throws SQLException {
         setTypeTable();
         setMonthTable();
@@ -67,6 +75,14 @@ public class ReportHomepage {
         });
     }
 
+    /**
+     * Sets up the table with appointment type data.
+     * Lambda expressions are used to define the callbacks for the cell value factories of the table columns
+     *
+     * Retrieves data from the database and populates the table with the number of appointments for each type.
+     *
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void setTypeTable() throws SQLException {
         ObservableList<Appointment> appointments = AppointmentHelper.fetchAppointments();
         HashMap<String, Integer> typeMap = new HashMap<>();
@@ -91,7 +107,14 @@ public class ReportHomepage {
         typeTableView.setItems(typeDataList);
     }
 
-
+    /**
+     * Sets up the table with appointment month data.
+     * Lambda expressions are used to define the callbacks for the cell value factories of the table columns
+     *
+     * Retrieves data from the database and populates the table with the number of appointments for each month.
+     *
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void setMonthTable() throws SQLException {
         ObservableList<Appointment> appointments = AppointmentHelper.fetchAppointments();
         HashMap<String, Integer> monthMap = new HashMap<>();
@@ -117,6 +140,11 @@ public class ReportHomepage {
         monthTableView.setItems(monthDataList);
     }
 
+    /**
+     * Sets up the table with contact data.
+     *
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void setContactTable() throws SQLException {
         String selectedContact = (String) contactComboBox.getValue();
         ObservableList<Appointment> appointments = AppointmentHelper.fetchAppointmentsByContact(selectedContact);
@@ -132,7 +160,11 @@ public class ReportHomepage {
         contactTableView.setItems(appointments);
     }
 
-
+    /**
+     * Fetches contacts from the database and sets them in the contactComboBox.
+     *
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void setContactComboBox() throws SQLException {
         ObservableList<Contact> contactsList = ContactHelper.fetchContacts();
         for (Contact contact : contactsList) {
@@ -140,6 +172,14 @@ public class ReportHomepage {
         }
     }
 
+    /**
+     * Sets up the table with customer division data.
+     * Lambda expressions are used to define the callbacks for the cell value factories of the table columns
+     *
+     * Retrieves data from the database and populates the table with the number of customers for each division.
+     *
+     * @throws SQLException if there is an error retrieving data from the database
+     */
     public void setDivisionTable() throws SQLException {
         ObservableList<Customer> customers = CustomerHelper.fetchCustomers();
         HashMap<String, Integer> divisionMap = new HashMap<>();
@@ -164,9 +204,11 @@ public class ReportHomepage {
         divisionTableView.setItems(divisionDataList);
     }
 
-
-
-
+    /**
+     * Loads the Homepage view and closes the current stage.
+     *
+     * @throws IOException If the FXML file for the Homepage view cannot be found.
+     */
     public void goToHomepage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXMLViews/Homepage.fxml"));
         Scene scene = new Scene(root);
